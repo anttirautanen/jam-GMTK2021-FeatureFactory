@@ -25,9 +25,13 @@ public class CompanyView : MonoBehaviour
         var nextMonthIncome = productPrice * customerCount;
         moneyColumn.Set(new[]
         {
+            new TextRow($"Product price: {productPrice:C0}"),
             new TextRow($"Current money: {currentMoney:C0}"),
             new TextRow("Current customers: " + customerCount),
-            new TextRow($"Product price: {productPrice:C0}"),
+            new TextRow($"Oldness effect: {Mathf.RoundToInt(Customers.GetOldnessEffect() * 100)}%"),
+            new TextRow($"Quality effect: {Mathf.RoundToInt(Customers.GetQualityEffect() * 100)}%"),
+            new TextRow($"Price effect: {Mathf.RoundToInt(Customers.GetPriceEffect() * 100)}%"),
+            new TextRow($"Total customer demand: {Mathf.RoundToInt(Customers.GetCustomerDemand() * 100)}%"),
             new TextRow($"Next month costs: {teamsCost:C0}"),
             new TextRow($"Next month income: {nextMonthIncome:C0}"),
             new TextRow($"Next month balance: {(currentMoney - teamsCost + nextMonthIncome):C0}")

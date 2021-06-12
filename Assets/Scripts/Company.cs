@@ -35,7 +35,7 @@ public class Company : MonoBehaviour
         Game.OnMonthChange += MonthUpdate;
 
         teams.Add(new DevTeam());
-        features.Add(new Feature());
+        features.Add(new Feature(Game.Instance.GetCurrentMonth()));
     }
 
     public BigInteger GetMoney()
@@ -67,5 +67,20 @@ public class Company : MonoBehaviour
         teams.ForEach(team => money -= team.GetCombinedSalary());
 
         CompanyUpdated?.Invoke();
+    }
+
+    public int GetMonthsSinceLastNewFeature()
+    {
+        return Game.Instance.GetCurrentMonth() - features.Select(feature => feature.MonthIntroduced).Max();
+    }
+
+    public int GetFeatureCount()
+    {
+        return features.Count;
+    }
+
+    public float GetAverageQuality()
+    {
+        return features.Aggregate(0f, (qualitySum, feature) => qualitySum + feature.Quality) / features.Count;
     }
 }

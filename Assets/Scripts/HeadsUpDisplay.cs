@@ -1,10 +1,17 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeadsUpDisplay : MonoBehaviour
 {
     public static event Action OnAdvanceToNextMonth;
     public RectTransform hiringView;
+    public Text monthText;
+
+    private void Start()
+    {
+        Game.OnMonthChange += UpdateMonth;
+    }
 
     private void Update()
     {
@@ -17,5 +24,10 @@ public class HeadsUpDisplay : MonoBehaviour
         {
             OnAdvanceToNextMonth?.Invoke();
         }
+    }
+
+    private void UpdateMonth(int month)
+    {
+        monthText.text = $"Month: {month}";
     }
 }

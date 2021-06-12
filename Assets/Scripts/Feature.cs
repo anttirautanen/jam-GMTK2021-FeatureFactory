@@ -4,6 +4,12 @@ public class Feature
 {
     public float SatisfiesCustomerNeed = 0f;
     public float Quality = 0f;
+    public readonly int MonthIntroduced;
+
+    public Feature(int monthIntroduced)
+    {
+        MonthIntroduced = monthIntroduced;
+    }
 
     public void AgeOneMonth()
     {
