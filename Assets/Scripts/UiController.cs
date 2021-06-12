@@ -19,12 +19,12 @@ public class UiController : MonoBehaviour
     }
 
     public Canvas canvas;
-    public Transform hudPrefab;
+    public Transform baseViewPrefab;
     private readonly Stack<GameObject> uiStack = new Stack<GameObject>();
 
     private void Start()
     {
-        OpenView(hudPrefab);
+        OpenView(baseViewPrefab);
     }
 
     private void Update()

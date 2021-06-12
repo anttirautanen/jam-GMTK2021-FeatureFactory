@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 207712227}
-  hudPrefab: {fileID: 2336368898211886208, guid: 7b78ec8fd3f0047298d4bf2f7037a019, type: 3}
+  baseViewPrefab: {fileID: 542695936233869699, guid: d9aea22bee5304f1fa8ab389d279fe01, type: 3}
 --- !u!4 &1530682707
 Transform:
   m_ObjectHideFlags: 0
