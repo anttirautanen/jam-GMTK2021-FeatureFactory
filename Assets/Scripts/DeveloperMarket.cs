@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class DeveloperMarket : MonoBehaviour
 {
+    private static DeveloperMarket _instance;
+
+    public static DeveloperMarket Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.Find("DeveloperMarket").GetComponent<DeveloperMarket>();
+            }
+
+            return _instance;
+        }
+    }
+
     public int marketSize = 10;
     private readonly List<Developer> availableDevelopers = new List<Developer>();
     private int developerIndex = 0;

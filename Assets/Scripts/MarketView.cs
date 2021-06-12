@@ -9,7 +9,6 @@ public class MarketView : LayoutGroup
     public static event Action<Developer> OnChangeHighlightedDeveloper;
     public static event Action<Developer> OnHireDeveloper;
 
-    public DeveloperMarket developerMarket;
     public RectTransform hireDeveloperRow;
     private List<Developer> availableDevelopersCache = new List<Developer>();
     private readonly List<HireDeveloperRow> hireDeveloperRows = new List<HireDeveloperRow>();
@@ -17,7 +16,7 @@ public class MarketView : LayoutGroup
 
     private void Update()
     {
-        var availableDevelopers = developerMarket.GetAvailableDevelopers();
+        var availableDevelopers = DeveloperMarket.Instance.GetAvailableDevelopers();
         if (IsAvailableDevelopersListChanged(availableDevelopers))
         {
             hireDeveloperRows.ForEach(rowTransform => Destroy(rowTransform.gameObject));

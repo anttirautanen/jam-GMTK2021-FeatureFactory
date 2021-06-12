@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class TeamView : MonoBehaviour
 {
     private static readonly string[] SkillNames = {"Design", "Frontend", "Backend", "Databases", "Devops"};
-    public Company company;
     public Text teamSpecsText;
     private DevTeam team;
 
@@ -14,8 +13,14 @@ public class TeamView : MonoBehaviour
         MarketView.OnChangeHighlightedDeveloper += ShowTeamWithDeveloper;
         MarketView.OnHireDeveloper += HireDeveloper;
 
-        team = company.GetFirstTeam();
+        team = Company.Instance.GetFirstTeam();
         UpdateTeamSpecsText(team);
+    }
+
+    private void OnDestroy()
+    {
+        MarketView.OnChangeHighlightedDeveloper -= ShowTeamWithDeveloper;
+        MarketView.OnHireDeveloper -= HireDeveloper;
     }
 
     private void ShowTeamWithDeveloper(Developer developer)
