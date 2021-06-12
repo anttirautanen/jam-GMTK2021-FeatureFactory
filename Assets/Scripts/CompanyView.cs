@@ -1,12 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CompanyView : MonoBehaviour
 {
     public Transform featureViewPrefab;
-    public Text moneyText;
-    public Text teamsCostText;
-    public Text nextMonthMoneyText;
+    public ColumnView columnView;
 
     private void Start()
     {
@@ -23,8 +20,11 @@ public class CompanyView : MonoBehaviour
     {
         var currentMoney = Company.Instance.GetMoney();
         var teamsCost = Company.Instance.GetFirstTeam().GetCombinedSalary();
-        moneyText.text = "Money: " + currentMoney;
-        teamsCostText.text = "Teams cost: " + (teamsCost > 0 ? "-" : "") + teamsCost;
-        nextMonthMoneyText.text = "--> " + (currentMoney - teamsCost);
+        columnView.Set(new[]
+        {
+            new TextRow("Money: " + currentMoney),
+            new TextRow("Teams cost: " + (teamsCost > 0 ? "-" : "") + teamsCost),
+            new TextRow("--> " + (currentMoney - teamsCost))
+        });
     }
 }
