@@ -28,17 +28,15 @@ public class Skills
 
     public static Skills GetRandomSkills()
     {
-        return new Skills(
-            GetRandomSkillPoint(),
-            GetRandomSkillPoint(),
-            GetRandomSkillPoint(),
-            GetRandomSkillPoint(),
-            GetRandomSkillPoint());
-    }
+        var focusIndex = Random.Range(0, 5);
+        var maxSkill = Random.Range(4, 10);
+        var skills = new int[5];
+        for (var i = 0; i < 5; ++i)
+        {
+            skills[i] = maxSkill - Mathf.Abs(focusIndex - i) * 2;
+        }
 
-    private static int GetRandomSkillPoint()
-    {
-        return Mathf.RoundToInt(Random.Range(0, MaxSkill + 1));
+        return new Skills(skills[0], skills[1], skills[2], skills[3], skills[4]);
     }
 
     public float GetSatisfiesCustomerNeedImprovement()
