@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,16 +9,17 @@ public class TeamView : MonoBehaviour
     public static event Action OnTeamUpdated;
 
     private static readonly string[] SkillNames = {"Design", "Frontend", "Backend", "Databases", "Devops"};
+    public Text teamNameText;
     public Text teamSpecsText;
-    private DevTeam team;
+    private int selectedTeamIndex = 0;
 
     private void Start()
     {
         MarketView.OnChangeHighlightedDeveloper += ShowTeamWithDeveloper;
         MarketView.OnHireDeveloper += HireDeveloper;
 
-        team = Company.Instance.GetFirstTeam();
-        UpdateTeamSpecsText(team);
+        UpdateTeamList();
+        UpdateTeamSpecsText();
     }
 
     private void OnDestroy()
@@ -26,16 +28,70 @@ public class TeamView : MonoBehaviour
         MarketView.OnHireDeveloper -= HireDeveloper;
     }
 
-    private void ShowTeamWithDeveloper(Developer developer)
+    private void Update()
     {
-        UpdateTeamSpecsText(team, developer);
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            SetSelectedTeamIndex(selectedTeamIndex + 1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            SetSelectedTeamIndex(selectedTeamIndex - 1);
+        }
     }
 
-    private void UpdateTeamSpecsText(DevTeam team, Developer nextDeveloper = null)
+    private void SetSelectedTeamIndex(int nextIndex)
     {
-        var teamSpecs = new StringBuilder().AppendLine($"Members: {team.GetMemberCount()}");
-        teamSpecs.Append(nextDeveloper != null ? GetComparisonSkillRows(team, nextDeveloper) : GetTeamSkillRows(team));
-        teamSpecsText.text = teamSpecs.ToString();
+        if (nextIndex >= Company.Instance.GetTeamCount())
+        {
+            selectedTeamIndex = 0;
+        }
+        else if (nextIndex < 0)
+        {
+            selectedTeamIndex = Company.Instance.GetTeamCount() - 1;
+        }
+        else
+        {
+            selectedTeamIndex = nextIndex;
+        }
+
+        UpdateTeamList();
+        UpdateTeamSpecsText();
+    }
+
+    private void UpdateTeamList()
+    {
+        if (Company.Instance.GetTeamCount() > 0)
+        {
+            teamNameText.text = "#" + selectedTeamIndex;
+        }
+        else
+        {
+            teamNameText.text = "No teams yet - create a feature first";
+        }
+    }
+
+    private void ShowTeamWithDeveloper(Developer developer)
+    {
+        UpdateTeamSpecsText(developer);
+    }
+
+    private void UpdateTeamSpecsText(Developer nextDeveloper = null)
+    {
+        if (Company.Instance.GetTeamCount() > 0)
+        {
+            var team = GetSelectedTeam();
+            var teamSpecs = new StringBuilder().AppendLine($"Members: {team.GetMemberCount()}");
+            teamSpecs.Append(nextDeveloper != null
+                ? GetComparisonSkillRows(team, nextDeveloper)
+                : GetTeamSkillRows(team));
+            teamSpecsText.text = teamSpecs.ToString();
+        }
+        else
+        {
+            teamSpecsText.text = "";
+        }
     }
 
     private static string GetTeamSkillRows(DevTeam team)
@@ -96,8 +152,18 @@ public class TeamView : MonoBehaviour
 
     private void HireDeveloper(Developer developer)
     {
-        team.AddMember(developer);
-        UpdateTeamSpecsText(team);
+        GetSelectedTeam().AddMember(developer);
+        UpdateTeamSpecsText();
         OnTeamUpdated?.Invoke();
+    }
+
+    private DevTeam GetSelectedTeam()
+    {
+        if (Company.Instance.GetTeamCount() > 0)
+        {
+            return Company.Instance.GetTeams().ToArray()[selectedTeamIndex];
+        }
+
+        return null;
     }
 }

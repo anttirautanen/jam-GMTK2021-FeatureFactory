@@ -30,12 +30,7 @@ public class Company : MonoBehaviour
 
     private void Start()
     {
-        print("Start company");
-
         Game.OnMonthChange += MonthUpdate;
-
-        teams.Add(new DevTeam());
-        features.Add(new Feature(Game.Instance.GetCurrentMonth()));
     }
 
     public BigInteger GetMoney()
@@ -43,24 +38,37 @@ public class Company : MonoBehaviour
         return money;
     }
 
-    public DevTeam GetFirstTeam()
+    public IEnumerable<DevTeam> GetTeams()
     {
-        return teams.First();
+        return teams.Select(team => team);
     }
 
-    public Feature GetFirstFeature()
+    public int GetTeamCount()
     {
-        return features.First();
+        return GetTeams().Count();
+    }
+
+    public void CreateFeatureAndTeam()
+    {
+        var team = new DevTeam();
+        teams.Add(team);
+        features.Add(new Feature(team, Game.Instance.GetCurrentMonth()));
+        CompanyUpdated?.Invoke();
+    }
+
+    public int GetCombinedSalary()
+    {
+        return teams.Aggregate(0, (combinedSalary, team) => combinedSalary + team.GetCombinedSalary());
     }
 
     private void MonthUpdate(int month)
     {
         money += Customers.Instance.GetCustomerCount() * productPrice;
 
-        features.ForEach(feature =>
+        GetAllFeatures().ToList().ForEach(feature =>
         {
             feature.AgeOneMonth();
-            var teamSkills = GetFirstTeam().GetCombinedSkills();
+            var teamSkills = feature.GetTeam().GetCombinedSkills();
             feature.Improve(teamSkills.GetSatisfiesCustomerNeedImprovement(), teamSkills.GetQualityImprovement());
         });
 
@@ -69,18 +77,29 @@ public class Company : MonoBehaviour
         CompanyUpdated?.Invoke();
     }
 
+    public IEnumerable<Feature> GetAllFeatures()
+    {
+        return features.Select(feature => feature);
+    }
+
+    private IEnumerable<Feature> GetReleasedFeatures()
+    {
+        return GetAllFeatures().Where(feature => feature.MonthIntroduced > 0);
+    }
+
     public int GetMonthsSinceLastNewFeature()
     {
-        return Game.Instance.GetCurrentMonth() - features.Select(feature => feature.MonthIntroduced).Max();
+        return Game.Instance.GetCurrentMonth() - GetReleasedFeatures().Select(feature => feature.MonthIntroduced).Max();
     }
 
     public int GetFeatureCount()
     {
-        return features.Count;
+        return GetReleasedFeatures().Count();
     }
 
     public float GetAverageQuality()
     {
-        return features.Aggregate(0f, (qualitySum, feature) => qualitySum + feature.Quality) / features.Count;
+        return GetReleasedFeatures().Aggregate(0f, (qualitySum, feature) => qualitySum + feature.Quality)
+               / GetReleasedFeatures().Count();
     }
 }

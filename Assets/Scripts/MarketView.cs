@@ -46,7 +46,8 @@ public class MarketView : LayoutGroup
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (!hireDeveloperRows[selectedDeveloperRowIndex].isHired)
+            if (Company.Instance.GetTeamCount() > 0
+                && !hireDeveloperRows[selectedDeveloperRowIndex].isHired)
             {
                 OnHireDeveloper?.Invoke(availableDevelopersCache[selectedDeveloperRowIndex]);
                 hireDeveloperRows[selectedDeveloperRowIndex].SetIsHired();

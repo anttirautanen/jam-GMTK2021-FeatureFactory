@@ -1,25 +1,30 @@
+using System.Linq;
 using UnityEngine;
 
 public class CompanyView : MonoBehaviour
 {
-    public Transform featureViewPrefab;
     public ColumnView moneyColumn;
+    public ColumnView featureColumn;
 
     private void Start()
     {
         Company.CompanyUpdated += UpdateMoney;
+        Company.CompanyUpdated += UpdateFeatures;
         TeamView.OnTeamUpdated += UpdateMoney;
+    }
 
-        var feature = Company.Instance.GetFirstFeature();
-        Instantiate(featureViewPrefab, transform)
-            .GetComponent<FeatureView>()
-            .SetFeature(feature);
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Company.Instance.CreateFeatureAndTeam();
+        }
     }
 
     private void UpdateMoney()
     {
         var currentMoney = Company.Instance.GetMoney();
-        var teamsCost = Company.Instance.GetFirstTeam().GetCombinedSalary();
+        var teamsCost = Company.Instance.GetCombinedSalary();
         var productPrice = Company.Instance.productPrice;
         var customerCount = Customers.Instance.GetCustomerCount();
         var nextMonthIncome = productPrice * customerCount;
@@ -36,5 +41,10 @@ public class CompanyView : MonoBehaviour
             new TextRow($"Next month income: {nextMonthIncome:C0}"),
             new TextRow($"Next month balance: {(currentMoney - teamsCost + nextMonthIncome):C0}")
         });
+    }
+
+    private void UpdateFeatures()
+    {
+        featureColumn.Set(Company.Instance.GetAllFeatures().Select(feature => new FeatureRow(feature)).ToArray());
     }
 }

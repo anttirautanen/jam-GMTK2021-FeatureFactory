@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -76,3 +76,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textRowPrefab: {fileID: 3133029807365385145, guid: b47e57cb984d94686b981a2ffed0652e, type: 3}
+  featureRowPrefab: {fileID: 805185712793798264, guid: 7dbe7c0e5298c4800bda20106c7a890c, type: 3}

@@ -56,7 +56,6 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  developerMarket: {fileID: 0}
   hireDeveloperRow: {fileID: 2733837076476277067, guid: 4ca3ab2b48dcb4004a346e25e349a006, type: 3}
 --- !u!1 &2439102068465365006
 GameObject:
@@ -157,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b14bd0602c145dfadbe61a1ce6fcf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  company: {fileID: 0}
+  teamNameText: {fileID: 2439102069302635326}
   teamSpecsText: {fileID: 2439102069938483952}
 --- !u!1 &2439102068551868775
 GameObject:
@@ -566,7 +565,7 @@ GameObject:
   - component: {fileID: 2439102069302635321}
   - component: {fileID: 2439102069302635326}
   m_Layer: 5
-  m_Name: Title
+  m_Name: TeamName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

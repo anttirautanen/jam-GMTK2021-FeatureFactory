@@ -1,9 +1,22 @@
-public class TextRow
+using UnityEngine;
+using UnityEngine.UI;
+
+public class TextRow : IRow
 {
-    public readonly string Text;
+    private readonly string text;
 
     public TextRow(string text)
     {
-        Text = text;
+        this.text = text;
+    }
+
+    public RowType GetRowType()
+    {
+        return RowType.Text;
+    }
+
+    public void Instantiate(Transform transformInstance)
+    {
+        transformInstance.GetComponent<Text>().text = text;
     }
 }
