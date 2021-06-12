@@ -73,4 +73,9 @@ public class Skills
 
         return 0.9f;
     }
+
+    public float GetAverageSkillPercentage()
+    {
+        return (float) (Design + Frontend + Backend + Database + Devops) / (MaxSkill * 5);
+    }
 }

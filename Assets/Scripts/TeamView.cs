@@ -1,9 +1,12 @@
+using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TeamView : MonoBehaviour
 {
+    public static event Action OnTeamUpdated;
+
     private static readonly string[] SkillNames = {"Design", "Frontend", "Backend", "Databases", "Devops"};
     public Text teamSpecsText;
     private DevTeam team;
@@ -52,7 +55,7 @@ public class TeamView : MonoBehaviour
     {
         var teamSkills = team.GetCombinedSkills();
         var teamSkillRows = GetSkillRows(teamSkills);
-        var comparisonRows = GetComparisonRows(teamSkills, nextDeveloper.skills);
+        var comparisonRows = GetComparisonRows(teamSkills, nextDeveloper.Skills);
         var rows = new StringBuilder();
         for (var i = 0; i < teamSkillRows.Length; i++)
         {
@@ -95,5 +98,6 @@ public class TeamView : MonoBehaviour
     {
         team.AddMember(developer);
         UpdateTeamSpecsText(team);
+        OnTeamUpdated?.Invoke();
     }
 }

@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using UnityEngine;
 
 public class Company : MonoBehaviour
 {
+    public static event Action CompanyUpdated;
+
     private static Company _instance;
 
     public static Company Instance
@@ -19,6 +23,7 @@ public class Company : MonoBehaviour
         }
     }
 
+    private BigInteger money = 500000;
     private readonly List<DevTeam> teams = new List<DevTeam>();
     private readonly List<Feature> features = new List<Feature>();
 
@@ -26,10 +31,15 @@ public class Company : MonoBehaviour
     {
         print("Start company");
 
-        Game.OnMonthChange += UpdateFeatures;
+        Game.OnMonthChange += MonthUpdate;
 
         teams.Add(new DevTeam());
         features.Add(new Feature());
+    }
+
+    public BigInteger GetMoney()
+    {
+        return money;
     }
 
     public DevTeam GetFirstTeam()
@@ -42,7 +52,7 @@ public class Company : MonoBehaviour
         return features.First();
     }
 
-    private void UpdateFeatures(int month)
+    private void MonthUpdate(int month)
     {
         features.ForEach(feature =>
         {
@@ -50,5 +60,9 @@ public class Company : MonoBehaviour
             var teamSkills = GetFirstTeam().GetCombinedSkills();
             feature.Improve(teamSkills.GetSatisfiesCustomerNeedImprovement(), teamSkills.GetQualityImprovement());
         });
+
+        teams.ForEach(team => money -= team.GetCombinedSalary());
+
+        CompanyUpdated?.Invoke();
     }
 }

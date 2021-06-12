@@ -12,23 +12,24 @@ public class HireDeveloperRow : MonoBehaviour
     public void SetDeveloper(Developer developer)
     {
         this.developer = developer;
-        UpdateName();
+        UpdateView();
     }
 
     public void SetIsHighlighted(bool isHighlighted)
     {
-        UpdateName(isHighlighted);
+        UpdateView(isHighlighted);
     }
 
     public void SetIsHired()
     {
         isHired = true;
-        UpdateName(true);
+        UpdateView(true);
     }
 
-    private void UpdateName(bool isHighlighted = false)
+    private void UpdateView(bool isHighlighted = false)
     {
         nameText.text = $"Developer #{developer.ID}" + (isHighlighted ? " <--" : "");
+        salaryText.text = developer.Salary.ToString();
 
         if (isHired)
         {

@@ -1,11 +1,13 @@
 public class Developer
 {
-    public readonly Skills skills;
     public readonly int ID;
+    public readonly Skills Skills;
+    public readonly int Salary;
 
-    public Developer(int id, Skills skills)
+    public Developer(int id, Skills skills, int salary)
     {
         ID = id;
-        this.skills = skills;
+        Skills = skills;
+        Salary = salary;
     }
 }

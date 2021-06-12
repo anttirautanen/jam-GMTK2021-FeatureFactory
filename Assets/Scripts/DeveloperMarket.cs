@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DeveloperMarket : MonoBehaviour
 {
+    private const int MinSalary = 2500;
+    private const int MaxSalary = 10000;
+
     private static DeveloperMarket _instance;
 
     public static DeveloperMarket Instance
@@ -38,7 +41,9 @@ public class DeveloperMarket : MonoBehaviour
     {
         for (var i = 0; i < marketSize; i++)
         {
-            availableDevelopers.Add(new Developer(developerIndex, Skills.GetRandomSkills()));
+            var skills = Skills.GetRandomSkills();
+            var salary = Mathf.RoundToInt(skills.GetAverageSkillPercentage() * (MaxSalary - MinSalary) + MinSalary);
+            availableDevelopers.Add(new Developer(developerIndex, skills, salary));
             developerIndex++;
         }
     }
