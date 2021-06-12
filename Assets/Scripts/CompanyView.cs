@@ -3,7 +3,7 @@ using UnityEngine;
 public class CompanyView : MonoBehaviour
 {
     public Transform featureViewPrefab;
-    public ColumnView columnView;
+    public ColumnView moneyColumn;
 
     private void Start()
     {
@@ -20,11 +20,17 @@ public class CompanyView : MonoBehaviour
     {
         var currentMoney = Company.Instance.GetMoney();
         var teamsCost = Company.Instance.GetFirstTeam().GetCombinedSalary();
-        columnView.Set(new[]
+        var productPrice = Company.Instance.productPrice;
+        var customerCount = Customers.Instance.GetCustomerCount();
+        var nextMonthIncome = productPrice * customerCount;
+        moneyColumn.Set(new[]
         {
-            new TextRow("Money: " + currentMoney),
-            new TextRow("Teams cost: " + (teamsCost > 0 ? "-" : "") + teamsCost),
-            new TextRow("--> " + (currentMoney - teamsCost))
+            new TextRow($"Current money: {currentMoney:C0}"),
+            new TextRow("Current customers: " + customerCount),
+            new TextRow($"Product price: {productPrice:C0}"),
+            new TextRow($"Next month costs: {teamsCost:C0}"),
+            new TextRow($"Next month income: {nextMonthIncome:C0}"),
+            new TextRow($"Next month balance: {(currentMoney - teamsCost + nextMonthIncome):C0}")
         });
     }
 }

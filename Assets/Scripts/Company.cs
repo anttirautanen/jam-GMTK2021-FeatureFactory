@@ -23,6 +23,7 @@ public class Company : MonoBehaviour
         }
     }
 
+    public int productPrice = 10;
     private BigInteger money = 500000;
     private readonly List<DevTeam> teams = new List<DevTeam>();
     private readonly List<Feature> features = new List<Feature>();
@@ -54,6 +55,8 @@ public class Company : MonoBehaviour
 
     private void MonthUpdate(int month)
     {
+        money += Customers.Instance.GetCustomerCount() * productPrice;
+
         features.ForEach(feature =>
         {
             feature.AgeOneMonth();
