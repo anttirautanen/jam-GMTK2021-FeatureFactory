@@ -26,7 +26,6 @@ public class UiController : MonoBehaviour
 
             return _instance;
         }
-        set => _instance = value;
     }
 
     public Transform canvas;

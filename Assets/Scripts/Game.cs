@@ -17,7 +17,6 @@ public class Game : MonoBehaviour
 
             return _instance;
         }
-        set => _instance = value;
     }
 
     public static event Action<int> OnMonthChange;

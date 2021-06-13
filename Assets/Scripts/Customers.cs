@@ -20,7 +20,6 @@ public class Customers : MonoBehaviour
 
             return _instance;
         }
-        set => _instance = value;
     }
 
     private void Start()

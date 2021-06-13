@@ -23,7 +23,6 @@ public class Company : MonoBehaviour
 
             return _instance;
         }
-        set => _instance = value;
     }
 
     public int productPrice = 10;
