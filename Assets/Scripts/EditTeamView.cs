@@ -23,6 +23,7 @@ public class EditTeamView : MonoBehaviour
         headingText.text = $"Team {feature.Name}";
         UpdateMembersColumn();
         UpdateTeamSkillColumn();
+        KeyHelp.Instance.Set(new[] {"(Esc) Features", "(F)ire"});
     }
 
     private void OnDestroy()

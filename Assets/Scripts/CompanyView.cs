@@ -11,6 +11,7 @@ public class CompanyView : MonoBehaviour
         DevTeam.TeamUpdated += UpdateMoneyColumn;
 
         UpdateMoneyColumn();
+        KeyHelp.Instance.Set(new[] {"(F)eatures", "(Q/E) Change product price", "(Shift+Enter) Next month"});
     }
 
     private void OnDestroy()

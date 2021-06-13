@@ -80,6 +80,11 @@ public class AvailableDevelopersView : MonoBehaviour
             availableDeveloperRows.Add(new DeveloperRow(availableDevelopers[i], isSelected));
         }
 
+        if (availableDevelopers.Count == 0)
+        {
+            availableDeveloperRows.Add(new TextRow("No more left this month"));
+        }
+
         availableDevelopersColumnView.Set(availableDeveloperRows);
     }
 

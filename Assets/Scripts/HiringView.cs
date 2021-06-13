@@ -14,6 +14,7 @@ public class HiringView : MonoBehaviour
     private void Start()
     {
         headingText.text = $"Hire into team {team.Feature.Name}";
+        KeyHelp.Instance.Set(new[] {"(Esc) Features", "(Enter) Hire"});
     }
 
     private void Update()

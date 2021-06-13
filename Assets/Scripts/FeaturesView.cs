@@ -12,6 +12,7 @@ public class FeaturesView : MonoBehaviour
         Company.CompanyStatsUpdated += UpdateFeatureList;
 
         UpdateFeatureList();
+        KeyHelp.Instance.Set(new[] {"(Esc) Company", "(N)ew feature", "(H)ire", "(R)elease", "(E)dit team"});
     }
 
     private void OnDestroy()
@@ -109,6 +110,11 @@ public class FeaturesView : MonoBehaviour
         {
             var isSelected = selectedFeatureIndex == i;
             rows.Add(new FeatureRow(features[i], isSelected));
+        }
+
+        if (features.Count == 0)
+        {
+            rows.Add(new TextRow("No features"));
         }
 
         featureColumnView.Set(rows);
