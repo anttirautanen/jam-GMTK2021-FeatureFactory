@@ -18,7 +18,7 @@ public class FeatureRow : IRow
 
     public void Instantiate(Transform transformInstance)
     {
-        var featureView = transformInstance.GetComponent<FeatureView>();
+        var featureView = transformInstance.GetComponent<FeatureRowView>();
         featureView.Setup(feature, isSelected);
     }
 }

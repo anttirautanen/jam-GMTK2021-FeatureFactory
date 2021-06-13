@@ -26,8 +26,15 @@ public class Game : MonoBehaviour
 
     private void Start()
     {
-        HeadsUpDisplay.OnAdvanceToNextMonth += OnAdvanceToNextMonth;
         Invoke(nameof(OnAdvanceToNextMonth), 0.5f);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Return))
+        {
+            OnAdvanceToNextMonth();
+        }
     }
 
     private void OnAdvanceToNextMonth()

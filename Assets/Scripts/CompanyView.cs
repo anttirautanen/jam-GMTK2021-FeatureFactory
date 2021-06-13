@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,13 +19,16 @@ public class CompanyView : MonoBehaviour
         DevTeam.TeamUpdated += UpdateMoneyColumn;
     }
 
+    private void OnDestroy()
+    {
+        Company.CompanyStatsUpdated -= UpdateMoneyColumn;
+        Company.CompanyStatsUpdated -= UpdateFeatureColumn;
+        TeamView.OnTeamUpdated -= UpdateMoneyColumn;
+        DevTeam.TeamUpdated -= UpdateMoneyColumn;
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Company.Instance.CreateFeatureAndTeam();
-        }
-
         if (Input.GetKeyDown(KeyCode.R))
         {
             var selectedFeature = GetSelectedFeature();
@@ -56,7 +60,7 @@ public class CompanyView : MonoBehaviour
             var selectedFeature = GetSelectedFeature();
             if (selectedFeature != null)
             {
-                var transformInstance = UiController.Instance.OpenView(editTeamView);
+                var transformInstance = UiController.Instance.OpenView(View.EditTeam);
                 transformInstance.GetComponent<EditTeamView>().Setup(selectedFeature);
             }
         }
@@ -66,9 +70,14 @@ public class CompanyView : MonoBehaviour
             var selectedFeature = GetSelectedFeature();
             if (selectedFeature != null)
             {
-                var transformInstance = UiController.Instance.OpenView(hiringView);
+                var transformInstance = UiController.Instance.OpenView(View.Hire);
                 transformInstance.GetComponentInChildren<TeamView>().Setup(GetSelectedFeature().GetTeam());
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            UiController.Instance.OpenView(View.Features);
         }
     }
 

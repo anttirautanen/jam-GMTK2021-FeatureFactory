@@ -6,6 +6,7 @@ public class ColumnView : MonoBehaviour
     public Transform textRowPrefab;
     public Transform labelAndValueRowPrefab;
     public Transform featureRowPrefab;
+    public Transform featureColumnHeadingsPrefab;
     public Transform developerRowPrefab;
     public Transform separatorRowPrefab;
     private readonly List<Transform> previousInstances = new List<Transform>();
@@ -30,6 +31,7 @@ public class ColumnView : MonoBehaviour
             RowType.Text => textRowPrefab,
             RowType.LabelAndValue => labelAndValueRowPrefab,
             RowType.Feature => featureRowPrefab,
+            RowType.FeatureColumnHeadings => featureColumnHeadingsPrefab,
             RowType.Developer => developerRowPrefab,
             RowType.Separator => separatorRowPrefab,
             _ => null

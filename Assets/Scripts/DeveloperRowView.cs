@@ -5,6 +5,7 @@ public class DeveloperRowView : MonoBehaviour
 {
     public Text isSelectedText;
     public Text nameText;
+    public Text salaryText;
     private Developer developer;
     private bool isSelected;
 
@@ -16,7 +17,8 @@ public class DeveloperRowView : MonoBehaviour
 
     private void Start()
     {
-        isSelectedText.text = isSelected ? "-->" : "";
-        nameText.text = $"#{developer.ID}, {developer.Salary:C0}";
+        isSelectedText.text = isSelected ? "×" : "";
+        nameText.text = $"Dev #{developer.ID},";
+        salaryText.text = $"{developer.Salary:C0}";
     }
 }

@@ -171,12 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1280, y: 1000}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -533,8 +533,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8040c1983fee242d7b9bf2e9ab0aa156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 207712227}
-  baseViewPrefab: {fileID: 542695936233869699, guid: d9aea22bee5304f1fa8ab389d279fe01, type: 3}
+  canvas: {fileID: 207712228}
+  baseViewPrefab: {fileID: 3131579880974436674, guid: d9aea22bee5304f1fa8ab389d279fe01, type: 3}
+  companyViewPrefab: {fileID: 3170697457974563590, guid: 3c88b93df784a4c4db5d435a13caf5ed, type: 3}
+  editTeamViewPrefab: {fileID: 2309697009863363105, guid: d5f0662d53d964965a6468ea14523389, type: 3}
+  hiringViewPrefab: {fileID: 2439102068465365001, guid: 13b7ceb4168a9464ca62ee7a887f7f71, type: 3}
+  featuresViewPrefab: {fileID: 8329913719484586764, guid: 444a07121fc4348929e9b4ab805679ef, type: 3}
 --- !u!4 &1530682707
 Transform:
   m_ObjectHideFlags: 0

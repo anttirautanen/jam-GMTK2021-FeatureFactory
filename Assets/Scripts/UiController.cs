@@ -1,6 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum View
+{
+    Company,
+    EditTeam,
+    Hire,
+    Features
+}
+
 public class UiController : MonoBehaviour
 {
     private static UiController _instance;
@@ -18,42 +26,40 @@ public class UiController : MonoBehaviour
         }
     }
 
-    public Canvas canvas;
+    public Transform canvas;
     public Transform baseViewPrefab;
-    private readonly Stack<GameObject> uiStack = new Stack<GameObject>();
+    public Transform companyViewPrefab;
+    public Transform editTeamViewPrefab;
+    public Transform hiringViewPrefab;
+    public Transform featuresViewPrefab;
+
+    private Dictionary<View, Transform> views;
+    private BaseView baseView;
+    private GameObject currentView;
 
     private void Start()
     {
-        OpenView(baseViewPrefab);
+        views = new Dictionary<View, Transform>
+        {
+            {View.Company, companyViewPrefab},
+            {View.EditTeam, editTeamViewPrefab},
+            {View.Hire, hiringViewPrefab},
+            {View.Features, featuresViewPrefab}
+        };
+
+        baseView = Instantiate(baseViewPrefab, canvas).GetComponent<BaseView>();
+        OpenView(View.Company);
     }
 
-    private void Update()
+    public Transform OpenView(View view)
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (currentView != null)
         {
-            CloseView();
-        }
-    }
-
-    public Transform OpenView(Transform view)
-    {
-        if (uiStack.Count > 0)
-        {
-            uiStack.Peek().SetActive(false);
+            Destroy(currentView);
         }
 
-        var transformInstance = Instantiate(view, canvas.transform);
-        uiStack.Push(transformInstance.gameObject);
+        var transformInstance = baseView.SwitchView(views[view]);
+        currentView = transformInstance.gameObject;
         return transformInstance;
-    }
-
-    private void CloseView()
-    {
-        if (uiStack.Count > 1)
-        {
-            var viewGameObject = uiStack.Pop();
-            uiStack.Peek().SetActive(true);
-            Destroy(viewGameObject);
-        }
     }
 }

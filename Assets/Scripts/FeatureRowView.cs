@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FeatureView : MonoBehaviour
+public class FeatureRowView : MonoBehaviour
 {
     public Text featureNameText;
     public Text satisfiesCustomerNeedText;
@@ -22,7 +22,7 @@ public class FeatureView : MonoBehaviour
         featureNameText.text = feature.Name;
         satisfiesCustomerNeedText.text = Mathf.RoundToInt(feature.SatisfiesCustomerNeed * 100) + "%";
         qualityText.text = Mathf.RoundToInt(feature.Quality * 100) + "%";
-        isSelectedText.text = isSelected ? "-->" : "";
+        isSelectedText.text = isSelected ? "×" : "";
         isReleasedText.text = feature.IsReleased() ? "Released" : "Not released";
     }
 }

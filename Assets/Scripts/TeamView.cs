@@ -7,7 +7,6 @@ public class TeamView : MonoBehaviour
 {
     public static event Action OnTeamUpdated;
 
-    public Text teamNameText;
     public Text teamSpecsText;
     private DevTeam team;
 
@@ -18,10 +17,9 @@ public class TeamView : MonoBehaviour
 
     private void Start()
     {
-        MarketView.OnChangeHighlightedDeveloper += ShowTeamWithDeveloper;
-        MarketView.OnHireDeveloper += HireDeveloper;
+        AvailableDevelopersView.OnChangeHighlightedDeveloper += ShowTeamWithDeveloper;
+        AvailableDevelopersView.OnHireDeveloper += HireDeveloper;
 
-        UpdateTeamList();
         UpdateTeamSpecsText();
     }
 
@@ -29,11 +27,6 @@ public class TeamView : MonoBehaviour
     {
         MarketView.OnChangeHighlightedDeveloper -= ShowTeamWithDeveloper;
         MarketView.OnHireDeveloper -= HireDeveloper;
-    }
-
-    private void UpdateTeamList()
-    {
-        teamNameText.text = team.Feature.Name;
     }
 
     private void ShowTeamWithDeveloper(Developer developer)
