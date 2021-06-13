@@ -114,4 +114,10 @@ public class Company : MonoBehaviour
     {
         CompanyUpdated?.Invoke();
     }
+
+    public void SetProductPrice(int nextPrice)
+    {
+        productPrice = nextPrice < 10 ? 10 : nextPrice;
+        CompanyUpdated?.Invoke();
+    }
 }

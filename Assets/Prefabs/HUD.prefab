@@ -130,7 +130,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'H: Hire     Shift+Enter: Next month     C: Create feature'
+  m_Text: 'H: Hire     Shift+Enter: Next month     C: Create feature     W/S: Change
+    team     Q/E: Change price'
 --- !u!1 &4826278546093580173
 GameObject:
   m_ObjectHideFlags: 0

@@ -576,6 +576,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9876a89a82d24950aaa49117f06a4e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  priceThreshold: 50
+  priceThresholdMonthThreshold: 48
+  oldFeaturesThreshold: 18
+  qualityThreshold: 0.95
 --- !u!4 &1598035631
 Transform:
   m_ObjectHideFlags: 0

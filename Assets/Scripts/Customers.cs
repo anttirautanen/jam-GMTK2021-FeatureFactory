@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class Customers : MonoBehaviour
 {
-    private const int OldFeaturesThreshold = 18;
-    private const int PriceThreshold = 50;
-    private const float QualityThreshold = 0.95f;
+    [Range(1, 1000)] public int priceThreshold = 100;
+    [Range(1, 100)] public int priceThresholdMonthThreshold = 50;
+    [Range(1, 100)] public int oldFeaturesThreshold = 18;
+    [Range(0f, 1f)] public float qualityThreshold = 0.95f;
     private int customers = 0;
     private static Customers _instance;
 
@@ -44,41 +45,44 @@ public class Customers : MonoBehaviour
         }
     }
 
-    public static float GetCustomerDemand()
+    public float GetCustomerDemand()
     {
         return 1f + GetOldnessEffect() + GetPriceEffect() + GetQualityEffect();
     }
 
-    public static float GetOldnessEffect()
+    public float GetOldnessEffect()
     {
         var ageInMonths = Company.Instance.GetFeatureCount() > 0
             ? Company.Instance.GetMonthsSinceLastNewFeature()
             : Game.Instance.GetCurrentMonth();
-        var oldnessIndex = Mathf.Clamp((float) ageInMonths / OldFeaturesThreshold, 0f, 1f);
+        var oldnessIndex = Mathf.Clamp((float) ageInMonths / oldFeaturesThreshold, 0f, 1f);
         return -(oldnessIndex * 0.5f) + 0.1f;
     }
 
-    public static float GetPriceEffect()
+    public float GetPriceEffect()
     {
         var featureCount = Company.Instance.GetFeatureCount();
         if (featureCount > 0)
         {
             var pricePerFeature = Company.Instance.productPrice / featureCount;
-
-            var priceIndex = Mathf.Clamp((float) pricePerFeature / PriceThreshold, 0f, 1f);
+            var currentMonth = Game.Instance.GetCurrentMonth();
+            var ageEffectToPricePerFeature =
+                Mathf.Clamp((float) (priceThresholdMonthThreshold - currentMonth) / priceThresholdMonthThreshold, 0f,
+                    1f) * 0.4f + 0.6f;
+            var priceIndex = Mathf.Clamp(pricePerFeature / (priceThreshold * ageEffectToPricePerFeature), 0f, 1f);
             return -(priceIndex * 0.3f - 0.15f);
         }
 
         return 0f;
     }
 
-    public static float GetQualityEffect()
+    public float GetQualityEffect()
     {
         var featureCount = Company.Instance.GetFeatureCount();
         if (featureCount > 0)
         {
             var averageQuality = Company.Instance.GetAverageQuality();
-            var qualityIndex = Mathf.Clamp(averageQuality / QualityThreshold, 0f, 1f);
+            var qualityIndex = Mathf.Clamp(averageQuality / qualityThreshold, 0f, 1f);
             return qualityIndex * 0.4f - 0.2f;
         }
 

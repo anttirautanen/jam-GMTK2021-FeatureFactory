@@ -36,6 +36,16 @@ public class CompanyView : MonoBehaviour
         {
             SetSelectedFeature(selectedFeatureIndex - 1);
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Company.Instance.SetProductPrice(Company.Instance.productPrice + 10);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Company.Instance.SetProductPrice(Company.Instance.productPrice - 10);
+        }
     }
 
     private void SetSelectedFeature(int nextIndex)
@@ -47,7 +57,14 @@ public class CompanyView : MonoBehaviour
         }
         else if (nextIndex < 0)
         {
-            selectedFeatureIndex = featuresCount - 1;
+            if (featuresCount == 0)
+            {
+                selectedFeatureIndex = 0;
+            }
+            else
+            {
+                selectedFeatureIndex = featuresCount - 1;
+            }
         }
         else
         {
@@ -70,10 +87,10 @@ public class CompanyView : MonoBehaviour
             new TextRow($"Current money: {currentMoney:C0}"),
             new TextRow("Current customers: " + customerCount),
             new TextRow($"Months since last release: {Company.Instance.GetMonthsSinceLastNewFeature()}"),
-            new TextRow($"Oldness effect: {Mathf.RoundToInt(Customers.GetOldnessEffect() * 100)}%"),
-            new TextRow($"Quality effect: {Mathf.RoundToInt(Customers.GetQualityEffect() * 100)}%"),
-            new TextRow($"Price effect: {Mathf.RoundToInt(Customers.GetPriceEffect() * 100)}%"),
-            new TextRow($"Total customer demand: {Mathf.RoundToInt(Customers.GetCustomerDemand() * 100)}%"),
+            new TextRow($"Oldness effect: {Mathf.RoundToInt(Customers.Instance.GetOldnessEffect() * 100)}%"),
+            new TextRow($"Quality effect: {Mathf.RoundToInt(Customers.Instance.GetQualityEffect() * 100)}%"),
+            new TextRow($"Price effect: {Mathf.RoundToInt(Customers.Instance.GetPriceEffect() * 100)}%"),
+            new TextRow($"Total customer demand: {Mathf.RoundToInt(Customers.Instance.GetCustomerDemand() * 100)}%"),
             new TextRow($"Next month costs: {teamsCost:C0}"),
             new TextRow($"Next month income: {nextMonthIncome:C0}"),
             new TextRow($"Next month balance: {(currentMoney - teamsCost + nextMonthIncome):C0}")
