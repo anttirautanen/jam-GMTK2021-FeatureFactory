@@ -22,7 +22,6 @@ public class DeveloperMarket : MonoBehaviour
         }
     }
 
-    public int marketSize = 10;
     private readonly List<Developer> availableDevelopers = new List<Developer>();
     private int developerIndex = 0;
 
@@ -45,6 +44,7 @@ public class DeveloperMarket : MonoBehaviour
 
     private void AddDevelopersToMarket()
     {
+        var marketSize = Random.Range(4, 10);
         for (var i = 0; i < marketSize; i++)
         {
             var skills = Skills.GetRandomSkills();
