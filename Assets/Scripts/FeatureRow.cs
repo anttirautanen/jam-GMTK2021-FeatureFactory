@@ -3,10 +3,12 @@ using UnityEngine;
 public class FeatureRow : IRow
 {
     private readonly Feature feature;
+    private readonly bool isSelected;
 
-    public FeatureRow(Feature feature)
+    public FeatureRow(Feature feature, bool isSelected)
     {
         this.feature = feature;
+        this.isSelected = isSelected;
     }
 
     public RowType GetRowType()
@@ -16,6 +18,7 @@ public class FeatureRow : IRow
 
     public void Instantiate(Transform transformInstance)
     {
-        transformInstance.GetComponent<FeatureView>().SetFeature(feature);
+        var featureView = transformInstance.GetComponent<FeatureView>();
+        featureView.Setup(feature, isSelected);
     }
 }

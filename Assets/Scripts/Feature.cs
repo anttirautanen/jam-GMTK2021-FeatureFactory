@@ -1,16 +1,18 @@
+using System;
 using UnityEngine;
 
 public class Feature
 {
+    public static event Action FeatureReleased;
+
     public float SatisfiesCustomerNeed = 0f;
     public float Quality = 0f;
-    public readonly int MonthIntroduced;
+    public int MonthIntroduced;
     private readonly DevTeam team;
 
-    public Feature(DevTeam team, int monthIntroduced)
+    public Feature(DevTeam team)
     {
         this.team = team;
-        MonthIntroduced = monthIntroduced;
     }
 
     public void AgeOneMonth()
@@ -28,5 +30,19 @@ public class Feature
     public DevTeam GetTeam()
     {
         return team;
+    }
+
+    public void Release()
+    {
+        if (!IsReleased())
+        {
+            MonthIntroduced = Game.Instance.GetCurrentMonth();
+            FeatureReleased?.Invoke();
+        }
+    }
+
+    public bool IsReleased()
+    {
+        return MonthIntroduced > 0;
     }
 }
