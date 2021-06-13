@@ -24,8 +24,8 @@ public class TeamView : MonoBehaviour
 
     private void OnDestroy()
     {
-        MarketView.OnChangeHighlightedDeveloper -= ShowTeamWithDeveloper;
-        MarketView.OnHireDeveloper -= HireDeveloper;
+        AvailableDevelopersView.OnChangeHighlightedDeveloper -= ShowTeamWithDeveloper;
+        AvailableDevelopersView.OnHireDeveloper -= HireDeveloper;
     }
 
     private void ShowTeamWithDeveloper(Developer developer)
