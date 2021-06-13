@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class Game : MonoBehaviour
     }
 
     public static event Action<int> OnMonthChange;
+
+    public Text monthText;
     private int month = 0;
 
     private void Start()
@@ -31,6 +34,7 @@ public class Game : MonoBehaviour
     {
         month++;
         OnMonthChange?.Invoke(month);
+        monthText.text = $"Month {month}";
     }
 
     public int GetCurrentMonth()
