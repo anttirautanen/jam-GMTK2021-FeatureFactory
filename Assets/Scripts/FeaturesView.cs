@@ -28,17 +28,21 @@ public class FeaturesView : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.H))
         {
-            var features = Company.Instance.GetAllFeatures().ToList();
-            var featureCount = features.Count;
-            if (featureCount > 0)
+            var selectedFeature = GetSelectedFeature();
+            if (selectedFeature != null)
             {
                 var hiringViewTransformInstance = UiController.Instance.OpenView(View.Hire);
-                var selectedTeam = features[selectedFeatureIndex].GetTeam();
+                var selectedTeam = selectedFeature.GetTeam();
                 hiringViewTransformInstance.GetComponentInChildren<TeamView>().Setup(selectedTeam);
                 hiringViewTransformInstance.GetComponentInChildren<HiringView>().Setup(selectedTeam);
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            var selectedFeature = GetSelectedFeature();
+            selectedFeature?.Release();
+        }
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             SetSelectedFeatureIndex(selectedFeatureIndex + 1);
@@ -92,5 +96,10 @@ public class FeaturesView : MonoBehaviour
         }
 
         featureColumnView.Set(rows);
+    }
+
+    private Feature GetSelectedFeature()
+    {
+        return Company.Instance.GetAllFeatures().ToArray().ElementAtOrDefault(selectedFeatureIndex);
     }
 }
