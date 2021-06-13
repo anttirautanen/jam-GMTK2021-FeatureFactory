@@ -76,5 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textRowPrefab: {fileID: 3133029807365385145, guid: b47e57cb984d94686b981a2ffed0652e, type: 3}
+  labelAndValueRowPrefab: {fileID: 1429366996741413777, guid: 1a161d629641a4657a4dcacc837f1d14, type: 3}
   featureRowPrefab: {fileID: 805185712793798264, guid: 7dbe7c0e5298c4800bda20106c7a890c, type: 3}
   developerRowPrefab: {fileID: 3701606394355160820, guid: cf45b5803953a4300a0633cef65785c8, type: 3}
+  separatorRowPrefab: {fileID: 9215290688505843388, guid: f05b38a3c876a4468a0ec5d74ea0c51f, type: 3}

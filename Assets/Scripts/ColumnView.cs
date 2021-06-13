@@ -4,8 +4,10 @@ using UnityEngine;
 public class ColumnView : MonoBehaviour
 {
     public Transform textRowPrefab;
+    public Transform labelAndValueRowPrefab;
     public Transform featureRowPrefab;
     public Transform developerRowPrefab;
+    public Transform separatorRowPrefab;
     private readonly List<Transform> previousInstances = new List<Transform>();
 
     public void Set(IEnumerable<IRow> rows)
@@ -26,8 +28,10 @@ public class ColumnView : MonoBehaviour
         return row.GetRowType() switch
         {
             RowType.Text => textRowPrefab,
+            RowType.LabelAndValue => labelAndValueRowPrefab,
             RowType.Feature => featureRowPrefab,
             RowType.Developer => developerRowPrefab,
+            RowType.Separator => separatorRowPrefab,
             _ => null
         };
     }

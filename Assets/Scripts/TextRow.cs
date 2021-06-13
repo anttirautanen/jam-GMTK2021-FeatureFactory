@@ -4,10 +4,12 @@ using UnityEngine.UI;
 public class TextRow : IRow
 {
     private readonly string text;
+    private readonly TextRowStyle style;
 
-    public TextRow(string text)
+    public TextRow(string text, TextRowStyle textRowStyle = null)
     {
         this.text = text;
+        style = textRowStyle ?? new TextRowStyle();
     }
 
     public RowType GetRowType()
@@ -17,6 +19,13 @@ public class TextRow : IRow
 
     public void Instantiate(Transform transformInstance)
     {
-        transformInstance.GetComponent<Text>().text = text;
+        var textComponent = transformInstance.GetComponent<Text>();
+        textComponent.text = text;
+
+        if (style.IsHeading)
+        {
+            textComponent.fontSize = 30;
+            textComponent.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 50);
+        }
     }
 }

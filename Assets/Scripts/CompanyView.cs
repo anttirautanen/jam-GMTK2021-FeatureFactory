@@ -105,19 +105,21 @@ public class CompanyView : MonoBehaviour
         var productPrice = Company.Instance.productPrice;
         var customerCount = Customers.Instance.GetCustomerCount();
         var nextMonthIncome = productPrice * customerCount;
-        moneyColumn.Set(new[]
+        moneyColumn.Set(new IRow[]
         {
-            new TextRow($"Product price: {productPrice:C0}"),
-            new TextRow($"Current money: {currentMoney:C0}"),
-            new TextRow("Current customers: " + customerCount),
-            new TextRow($"Months since last release: {Company.Instance.GetMonthsSinceLastNewFeature()}"),
-            new TextRow($"Oldness effect: {Mathf.RoundToInt(Customers.Instance.GetOldnessEffect() * 100)}%"),
-            new TextRow($"Quality effect: {Mathf.RoundToInt(Customers.Instance.GetQualityEffect() * 100)}%"),
-            new TextRow($"Price effect: {Mathf.RoundToInt(Customers.Instance.GetPriceEffect() * 100)}%"),
-            new TextRow($"Total customer demand: {Mathf.RoundToInt(Customers.Instance.GetCustomerDemand() * 100)}%"),
-            new TextRow($"Next month costs: {teamsCost:C0}"),
-            new TextRow($"Next month income: {nextMonthIncome:C0}"),
-            new TextRow($"Next month balance: {(currentMoney - teamsCost + nextMonthIncome):C0}")
+            new LabelAndValueRow("Money", $"{currentMoney:C0}", TextRowStyle.Heading),
+            new LabelAndValueRow("Income", $"{nextMonthIncome:C0}", TextRowStyle.Positive),
+            new LabelAndValueRow("Expenses", $"{teamsCost:C0}", TextRowStyle.Negative),
+            new LabelAndValueRow("Next month balance", $"{(currentMoney - teamsCost + nextMonthIncome):C0}"),
+            new SeparatorRow(),
+            new LabelAndValueRow("Customers", customerCount.ToString()),
+            new LabelAndValueRow("Product price", $"{productPrice:C0}"),
+            new SeparatorRow(),
+            new LabelAndValueRow("Customer demand",
+                $"{Mathf.RoundToInt(Customers.Instance.GetCustomerDemand() * 100)}%"),
+            new LabelAndValueRow("Age effect", $"{Mathf.RoundToInt(Customers.Instance.GetOldnessEffect() * 100)}%"),
+            new LabelAndValueRow("Quality effect", $"{Mathf.RoundToInt(Customers.Instance.GetQualityEffect() * 100)}%"),
+            new LabelAndValueRow("Price effect", $"{Mathf.RoundToInt(Customers.Instance.GetPriceEffect() * 100)}%")
         });
     }
 
