@@ -33,7 +33,7 @@ public class Skills
         var skills = new int[5];
         for (var i = 0; i < 5; ++i)
         {
-            skills[i] = maxSkill - Mathf.Abs(focusIndex - i) * 2;
+            skills[i] = Mathf.Clamp(maxSkill - Mathf.Abs(focusIndex - i) * 2, 0, 10);
         }
 
         return new Skills(skills[0], skills[1], skills[2], skills[3], skills[4]);

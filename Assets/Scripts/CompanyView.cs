@@ -6,6 +6,7 @@ public class CompanyView : MonoBehaviour
 {
     public ColumnView moneyColumn;
     public ColumnView featureColumn;
+    public Transform editTeamView;
     private int selectedFeatureIndex = 0;
 
     private void Start()
@@ -13,6 +14,7 @@ public class CompanyView : MonoBehaviour
         Company.CompanyStatsUpdated += UpdateMoneyColumn;
         Company.CompanyStatsUpdated += UpdateFeatureColumn;
         TeamView.OnTeamUpdated += UpdateMoneyColumn;
+        DevTeam.TeamUpdated += UpdateMoneyColumn;
     }
 
     private void Update()
@@ -24,7 +26,8 @@ public class CompanyView : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Company.Instance.GetAllFeatures().ToArray()[selectedFeatureIndex].Release();
+            var selectedFeature = GetSelectedFeature();
+            selectedFeature?.Release();
         }
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -45,6 +48,16 @@ public class CompanyView : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Company.Instance.SetProductPrice(Company.Instance.productPrice - 10);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            var selectedFeature = GetSelectedFeature();
+            if (selectedFeature != null)
+            {
+                var transformInstance = UiController.Instance.OpenView(editTeamView);
+                transformInstance.GetComponent<EditTeamView>().Setup(selectedFeature);
+            }
         }
     }
 
@@ -108,5 +121,11 @@ public class CompanyView : MonoBehaviour
         }
 
         featureColumn.Set(featureRows);
+    }
+
+    private Feature GetSelectedFeature()
+    {
+        var features = Company.Instance.GetAllFeatures().ToArray();
+        return features.ElementAtOrDefault(selectedFeatureIndex);
     }
 }

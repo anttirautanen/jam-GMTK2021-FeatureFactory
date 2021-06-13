@@ -5,13 +5,15 @@ public class Feature
 {
     public static event Action FeatureReleased;
 
+    public readonly string Name;
     public float SatisfiesCustomerNeed = 0f;
     public float Quality = 0f;
     public int MonthIntroduced;
     private readonly DevTeam team;
 
-    public Feature(DevTeam team)
+    public Feature(string name, DevTeam team)
     {
+        Name = name;
         this.team = team;
     }
 

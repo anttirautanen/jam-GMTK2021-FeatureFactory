@@ -9,6 +9,7 @@ public class Company : MonoBehaviour
     public static event Action CompanyMonthlyUpdate;
     public static event Action CompanyStatsUpdated;
 
+    private static readonly Stack<string> NameList = new Stack<string>();
     private static Company _instance;
 
     public static Company Instance
@@ -33,6 +34,30 @@ public class Company : MonoBehaviour
     {
         Game.OnMonthChange += MonthUpdate;
         Feature.FeatureReleased += OnFeatureReleased;
+
+        NameList.Push("Conecare");
+        NameList.Push("Nemospace");
+        NameList.Push("Daltfind");
+        NameList.Push("Dreamwood");
+        NameList.Push("Moonbank");
+        NameList.Push("Hogmaster");
+        NameList.Push("Domjotech");
+        NameList.Push("Betaworld");
+        NameList.Push("Zerace");
+        NameList.Push("Unatatex");
+        NameList.Push("Hatchwheels");
+        NameList.Push("Alligatortechs");
+        NameList.Push("Webtales");
+        NameList.Push("Zimcare");
+        NameList.Push("Jetwood");
+        NameList.Push("Howzooming");
+        NameList.Push("Hammertronics");
+        NameList.Push("Lioncoms");
+        NameList.Push("Hummingtube");
+        NameList.Push("Globeshadow");
+        NameList.Push("Roundzoom");
+        NameList.Push("Bigzoom");
+        NameList.Push("Rootworth");
     }
 
     public BigInteger GetMoney()
@@ -54,7 +79,9 @@ public class Company : MonoBehaviour
     {
         var team = new DevTeam();
         teams.Add(team);
-        features.Add(new Feature(team));
+        var feature = new Feature(NameList.Pop(), team);
+        team.SetFeature(feature);
+        features.Add(feature);
         CompanyStatsUpdated?.Invoke();
     }
 

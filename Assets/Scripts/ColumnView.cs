@@ -5,6 +5,7 @@ public class ColumnView : MonoBehaviour
 {
     public Transform textRowPrefab;
     public Transform featureRowPrefab;
+    public Transform developerRowPrefab;
     private readonly List<Transform> previousInstances = new List<Transform>();
 
     public void Set(IEnumerable<IRow> rows)
@@ -26,6 +27,7 @@ public class ColumnView : MonoBehaviour
         {
             RowType.Text => textRowPrefab,
             RowType.Feature => featureRowPrefab,
+            RowType.Developer => developerRowPrefab,
             _ => null
         };
     }

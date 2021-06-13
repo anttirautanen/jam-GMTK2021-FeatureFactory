@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class FeatureView : MonoBehaviour
 {
+    public Text featureNameText;
     public Text satisfiesCustomerNeedText;
     public Text qualityText;
     public Text isSelectedText;
@@ -18,6 +19,7 @@ public class FeatureView : MonoBehaviour
 
     private void Start()
     {
+        featureNameText.text = feature.Name;
         satisfiesCustomerNeedText.text = Mathf.RoundToInt(feature.SatisfiesCustomerNeed * 100) + "%";
         qualityText.text = Mathf.RoundToInt(feature.Quality * 100) + "%";
         isSelectedText.text = isSelected ? "-->" : "";

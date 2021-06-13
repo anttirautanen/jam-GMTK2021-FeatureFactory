@@ -35,14 +35,16 @@ public class UiController : MonoBehaviour
         }
     }
 
-    public void OpenView(Transform view)
+    public Transform OpenView(Transform view)
     {
         if (uiStack.Count > 0)
         {
             uiStack.Peek().SetActive(false);
         }
 
-        uiStack.Push(Instantiate(view, canvas.transform).gameObject);
+        var transformInstance = Instantiate(view, canvas.transform);
+        uiStack.Push(transformInstance.gameObject);
+        return transformInstance;
     }
 
     private void CloseView()
