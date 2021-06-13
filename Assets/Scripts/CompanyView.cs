@@ -7,6 +7,7 @@ public class CompanyView : MonoBehaviour
     public ColumnView moneyColumn;
     public ColumnView featureColumn;
     public Transform editTeamView;
+    public Transform hiringView;
     private int selectedFeatureIndex = 0;
 
     private void Start()
@@ -57,6 +58,16 @@ public class CompanyView : MonoBehaviour
             {
                 var transformInstance = UiController.Instance.OpenView(editTeamView);
                 transformInstance.GetComponent<EditTeamView>().Setup(selectedFeature);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            var selectedFeature = GetSelectedFeature();
+            if (selectedFeature != null)
+            {
+                var transformInstance = UiController.Instance.OpenView(hiringView);
+                transformInstance.GetComponentInChildren<TeamView>().Setup(GetSelectedFeature().GetTeam());
             }
         }
     }

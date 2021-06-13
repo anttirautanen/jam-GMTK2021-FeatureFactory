@@ -54,6 +54,7 @@ MonoBehaviour:
   moneyColumn: {fileID: 8771494579587436878}
   featureColumn: {fileID: 3384773592829777002}
   editTeamView: {fileID: 2309697009863363105, guid: d5f0662d53d964965a6468ea14523389, type: 3}
+  hiringView: {fileID: 2439102068465365001, guid: 13b7ceb4168a9464ca62ee7a887f7f71, type: 3}
 --- !u!114 &9141858204555099009
 MonoBehaviour:
   m_ObjectHideFlags: 0

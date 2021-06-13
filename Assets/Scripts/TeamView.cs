@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +9,12 @@ public class TeamView : MonoBehaviour
 
     public Text teamNameText;
     public Text teamSpecsText;
-    private int selectedTeamIndex = 0;
+    private DevTeam team;
+
+    public void Setup(DevTeam team)
+    {
+        this.team = team;
+    }
 
     private void Start()
     {
@@ -27,43 +31,9 @@ public class TeamView : MonoBehaviour
         MarketView.OnHireDeveloper -= HireDeveloper;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            SetSelectedTeamIndex(selectedTeamIndex + 1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            SetSelectedTeamIndex(selectedTeamIndex - 1);
-        }
-    }
-
-    private void SetSelectedTeamIndex(int nextIndex)
-    {
-        if (nextIndex >= Company.Instance.GetTeamCount())
-        {
-            selectedTeamIndex = 0;
-        }
-        else if (nextIndex < 0)
-        {
-            selectedTeamIndex = Company.Instance.GetTeamCount() - 1;
-        }
-        else
-        {
-            selectedTeamIndex = nextIndex;
-        }
-
-        UpdateTeamList();
-        UpdateTeamSpecsText();
-    }
-
     private void UpdateTeamList()
     {
-        teamNameText.text = Company.Instance.GetTeamCount() > 0
-            ? GetSelectedTeam().Feature.Name
-            : "No teams yet - create a feature first";
+        teamNameText.text = team.Feature.Name;
     }
 
     private void ShowTeamWithDeveloper(Developer developer)
@@ -75,7 +45,6 @@ public class TeamView : MonoBehaviour
     {
         if (Company.Instance.GetTeamCount() > 0)
         {
-            var team = GetSelectedTeam();
             var teamSpecs = new TeamSpecs(team);
             var teamSpecsString = new StringBuilder().AppendLine($"Members: {team.GetMemberCount()}");
 
@@ -93,18 +62,8 @@ public class TeamView : MonoBehaviour
 
     private void HireDeveloper(Developer developer)
     {
-        GetSelectedTeam().AddMember(developer);
+        team.AddMember(developer);
         UpdateTeamSpecsText();
         OnTeamUpdated?.Invoke();
-    }
-
-    private DevTeam GetSelectedTeam()
-    {
-        if (Company.Instance.GetTeamCount() > 0)
-        {
-            return Company.Instance.GetTeams().ToArray()[selectedTeamIndex];
-        }
-
-        return null;
     }
 }
