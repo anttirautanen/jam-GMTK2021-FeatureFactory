@@ -3,6 +3,7 @@ public class TextRowStyle
     public bool IsHeading;
     public bool IsPositive;
     public bool IsNegative;
+    public bool IsSecondary;
 
     public static readonly TextRowStyle Heading = new TextRowStyle()
     {
@@ -17,5 +18,10 @@ public class TextRowStyle
     public static readonly TextRowStyle Negative = new TextRowStyle()
     {
         IsNegative = true
+    };
+
+    public static readonly TextRowStyle Secondary = new TextRowStyle()
+    {
+        IsSecondary = true
     };
 }

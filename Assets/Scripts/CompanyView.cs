@@ -108,18 +108,22 @@ public class CompanyView : MonoBehaviour
         moneyColumn.Set(new IRow[]
         {
             new LabelAndValueRow("Money", $"{currentMoney:C0}", TextRowStyle.Heading),
-            new LabelAndValueRow("Income", $"{nextMonthIncome:C0}", TextRowStyle.Positive),
-            new LabelAndValueRow("Expenses", $"{teamsCost:C0}", TextRowStyle.Negative),
+            new LabelAndValueRow("Income", $"+ {nextMonthIncome:C0}", TextRowStyle.Positive),
+            new LabelAndValueRow("Expenses", $"- {teamsCost:C0}", TextRowStyle.Negative),
             new LabelAndValueRow("Next month balance", $"{(currentMoney - teamsCost + nextMonthIncome):C0}"),
             new SeparatorRow(),
             new LabelAndValueRow("Customers", customerCount.ToString()),
             new LabelAndValueRow("Product price", $"{productPrice:C0}"),
+            new LabelAndValueRow("Income", $"{nextMonthIncome:C0}"),
             new SeparatorRow(),
             new LabelAndValueRow("Customer demand",
                 $"{Mathf.RoundToInt(Customers.Instance.GetCustomerDemand() * 100)}%"),
-            new LabelAndValueRow("Age effect", $"{Mathf.RoundToInt(Customers.Instance.GetOldnessEffect() * 100)}%"),
-            new LabelAndValueRow("Quality effect", $"{Mathf.RoundToInt(Customers.Instance.GetQualityEffect() * 100)}%"),
-            new LabelAndValueRow("Price effect", $"{Mathf.RoundToInt(Customers.Instance.GetPriceEffect() * 100)}%")
+            new LabelAndValueRow("Age effect", $"{Mathf.RoundToInt(Customers.Instance.GetOldnessEffect() * 100)}%",
+                TextRowStyle.Secondary),
+            new LabelAndValueRow("Quality effect", $"{Mathf.RoundToInt(Customers.Instance.GetQualityEffect() * 100)}%",
+                TextRowStyle.Secondary),
+            new LabelAndValueRow("Price effect", $"{Mathf.RoundToInt(Customers.Instance.GetPriceEffect() * 100)}%",
+                TextRowStyle.Secondary)
         });
     }
 

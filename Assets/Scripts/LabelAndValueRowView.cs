@@ -27,20 +27,28 @@ public class LabelAndValueRowView : MonoBehaviour
         {
             if (style.IsHeading)
             {
-                SetStyle(Colors.DefaultColor, 30, 50);
+                SetStyle(Colors.Default, 30, 50);
             }
             else if (style.IsPositive)
             {
-                SetStyle(Colors.PositiveColor);
+                SetStyle(Colors.Positive);
             }
             else if (style.IsNegative)
             {
-                SetStyle(Colors.NegativeColor);
+                SetStyle(Colors.Negative);
+            }
+            else if (style.IsSecondary)
+            {
+                SetStyle(Colors.Secondary);
+            }
+            else
+            {
+                SetStyle(Colors.Default);
             }
         }
         else
         {
-            SetStyle(Colors.DefaultColor);
+            SetStyle(Colors.Default);
         }
     }
 
