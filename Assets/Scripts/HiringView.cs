@@ -15,4 +15,12 @@ public class HiringView : MonoBehaviour
     {
         headingText.text = $"Hire into team {team.Feature.Name}";
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UiController.Instance.OpenView(View.Features);
+        }
+    }
 }

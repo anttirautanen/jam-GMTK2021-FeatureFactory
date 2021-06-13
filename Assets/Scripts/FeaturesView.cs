@@ -52,6 +52,11 @@ public class FeaturesView : MonoBehaviour
         {
             SetSelectedFeatureIndex(selectedFeatureIndex - 1);
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UiController.Instance.OpenView(View.Company);
+        }
     }
 
     private void SetSelectedFeatureIndex(int nextIndex)
