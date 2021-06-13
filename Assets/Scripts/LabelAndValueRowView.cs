@@ -41,6 +41,10 @@ public class LabelAndValueRowView : MonoBehaviour
             {
                 SetStyle(Colors.Secondary);
             }
+            else if (style.IsColumnHeading)
+            {
+                SetStyle(Colors.Secondary, 16, 20);
+            }
             else
             {
                 SetStyle(Colors.Default);

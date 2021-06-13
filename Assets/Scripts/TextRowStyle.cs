@@ -4,24 +4,30 @@ public class TextRowStyle
     public bool IsPositive;
     public bool IsNegative;
     public bool IsSecondary;
+    public bool IsColumnHeading;
 
-    public static readonly TextRowStyle Heading = new TextRowStyle()
+    public static readonly TextRowStyle Heading = new TextRowStyle
     {
         IsHeading = true
     };
 
-    public static readonly TextRowStyle Positive = new TextRowStyle()
+    public static readonly TextRowStyle Positive = new TextRowStyle
     {
         IsPositive = true
     };
 
-    public static readonly TextRowStyle Negative = new TextRowStyle()
+    public static readonly TextRowStyle Negative = new TextRowStyle
     {
         IsNegative = true
     };
 
-    public static readonly TextRowStyle Secondary = new TextRowStyle()
+    public static readonly TextRowStyle Secondary = new TextRowStyle
     {
         IsSecondary = true
+    };
+
+    public static readonly TextRowStyle ColumnHeading = new TextRowStyle
+    {
+        IsColumnHeading = true
     };
 }

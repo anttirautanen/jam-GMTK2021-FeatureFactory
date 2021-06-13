@@ -8,9 +8,9 @@ public class SkillRowView : MonoBehaviour
     public Text skillChangeText;
     private string skillName;
     private string skillValue;
-    private string skillChange;
+    private int skillChange;
 
-    public void Setup(string skillName, string skillValue, string skillChange)
+    public void Setup(string skillName, string skillValue, int skillChange)
     {
         this.skillName = skillName;
         this.skillValue = skillValue;
@@ -21,6 +21,23 @@ public class SkillRowView : MonoBehaviour
     {
         skillNameText.text = skillName;
         skillValueText.text = skillValue;
-        skillChangeText.text = skillChange;
+        skillChangeText.text = GetSkillChange();
+    }
+
+    private string GetSkillChange()
+    {
+        if (skillChange > 0)
+        {
+            skillChangeText.color = Colors.Positive;
+            return $"+{skillChange}";
+        }
+
+        if (skillChange < 0)
+        {
+            skillChangeText.color = Colors.Negative;
+            return $"{skillChange}";
+        }
+
+        return "";
     }
 }

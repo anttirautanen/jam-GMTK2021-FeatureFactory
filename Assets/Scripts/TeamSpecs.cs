@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 public class TeamSpecs
 {
@@ -12,35 +12,7 @@ public class TeamSpecs
         this.team = team;
     }
 
-    public string SpeculateHiring(Developer nextDeveloper)
-    {
-        var teamSpecs = new StringBuilder().AppendLine($"Members: {team.GetMemberCount()}");
-        var teamSkills = team.GetCombinedSkills();
-        var teamSkillRows = GetSkillRows(teamSkills);
-        var comparisonRows = GetComparisonRows(teamSkills, nextDeveloper.Skills);
-        for (var i = 0; i < teamSkillRows.Length; i++)
-        {
-            teamSpecs.AppendLine($"{SkillNames[i]} {teamSkillRows[i]} {comparisonRows[i]}");
-        }
-
-        return teamSpecs.ToString();
-    }
-
-    public string SpeculateFiring(Developer developerToFire)
-    {
-        var teamSpecs = new StringBuilder().AppendLine($"Members: {team.GetMemberCount()}");
-        var teamSkills = team.GetCombinedSkills();
-        var teamSkillRows = GetSkillRows(teamSkills);
-        var comparisonRows = GetComparisonRowsWhenFiring(developerToFire);
-        for (var i = 0; i < teamSkillRows.Length; i++)
-        {
-            teamSpecs.AppendLine($"{SkillNames[i]} {teamSkillRows[i]} {comparisonRows[i]}");
-        }
-
-        return teamSpecs.ToString();
-    }
-
-    public static int[] GetSkillRows(Skills skills)
+    public static IEnumerable<int> GetSkillRows(Skills skills)
     {
         return new[]
         {
@@ -52,25 +24,13 @@ public class TeamSpecs
         };
     }
 
-    private static string[] GetComparisonRows(Skills teamSkills, Skills developerSkills)
+    public int[] GetComparisonRowsWhenFiring(Developer developerToFire)
     {
-        var designDiff = developerSkills.Design - teamSkills.Design;
-        var frontendDiff = developerSkills.Frontend - teamSkills.Frontend;
-        var backendDiff = developerSkills.Backend - teamSkills.Backend;
-        var databaseDiff = developerSkills.Database - teamSkills.Database;
-        var devopsDiff = developerSkills.Devops - teamSkills.Devops;
-        return new[]
+        if (developerToFire == null)
         {
-            designDiff > 0 ? $"+{designDiff}" : "",
-            frontendDiff > 0 ? $"+{frontendDiff}" : "",
-            backendDiff > 0 ? $"+{backendDiff}" : "",
-            databaseDiff > 0 ? $"+{databaseDiff}" : "",
-            devopsDiff > 0 ? $"+{devopsDiff}" : ""
-        };
-    }
+            return new[] {0, 0, 0, 0, 0};
+        }
 
-    private string[] GetComparisonRowsWhenFiring(Developer developerToFire)
-    {
         var designDiff = GetDiffIfDeveloperFired(developerToFire, developer => developer.Skills.Design);
         var frontendDiff = GetDiffIfDeveloperFired(developerToFire, developer => developer.Skills.Frontend);
         var backendDiff = GetDiffIfDeveloperFired(developerToFire, developer => developer.Skills.Backend);
@@ -78,11 +38,11 @@ public class TeamSpecs
         var devopsDiff = GetDiffIfDeveloperFired(developerToFire, developer => developer.Skills.Devops);
         return new[]
         {
-            designDiff > 0 ? $"-{designDiff}" : "",
-            frontendDiff > 0 ? $"-{frontendDiff}" : "",
-            backendDiff > 0 ? $"-{backendDiff}" : "",
-            databaseDiff > 0 ? $"-{databaseDiff}" : "",
-            devopsDiff > 0 ? $"-{devopsDiff}" : "",
+            designDiff > 0 ? -designDiff : 0,
+            frontendDiff > 0 ? -frontendDiff : 0,
+            backendDiff > 0 ? -backendDiff : 0,
+            databaseDiff > 0 ? -databaseDiff : 0,
+            devopsDiff > 0 ? -devopsDiff : 0,
         };
     }
 
@@ -99,18 +59,5 @@ public class TeamSpecs
         }
 
         return getSkillFunc(developerToFire);
-    }
-
-    public string GetSkillsString()
-    {
-        var teamSkills = team.GetCombinedSkills();
-        var teamSkillRows = GetSkillRows(teamSkills);
-        var rows = new StringBuilder();
-        for (var i = 0; i < teamSkillRows.Length; i++)
-        {
-            rows.AppendLine($"{SkillNames[i]} {teamSkillRows[i]}");
-        }
-
-        return rows.ToString();
     }
 }

@@ -43,6 +43,17 @@ public class FeaturesView : MonoBehaviour
             var selectedFeature = GetSelectedFeature();
             selectedFeature?.Release();
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            var selectedFeature = GetSelectedFeature();
+            if (selectedFeature != null)
+            {
+                var hiringViewTransformInstance = UiController.Instance.OpenView(View.EditTeam);
+                hiringViewTransformInstance.GetComponent<EditTeamView>().Setup(selectedFeature);
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             SetSelectedFeatureIndex(selectedFeatureIndex + 1);

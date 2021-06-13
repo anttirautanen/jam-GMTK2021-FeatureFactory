@@ -38,24 +38,18 @@ public class TeamView : MonoBehaviour
         teamSkillColumnView.Set(TeamSpecs
             .GetSkillRows(team.GetCombinedSkills())
             .Select((currentSkill, index) => new SkillRow(TeamSpecs.SkillNames[index], currentSkill.ToString(),
-                GetSkillChange(currentSkill, index, nextDeveloper)))
+                Mathf.Clamp(GetSkillChange(currentSkill, index, nextDeveloper), 0, 10)))
         );
     }
 
-    private string GetSkillChange(int originalSkill, int skillIndex, Developer developer = null)
+    private int GetSkillChange(int originalSkill, int skillIndex, Developer developer = null)
     {
         if (developer == null)
         {
-            return "";
+            return 0;
         }
 
-        var skillChange = developer.Skills.GetByIndex(skillIndex) - originalSkill;
-        if (skillChange > 0)
-        {
-            return $"+{skillChange}";
-        }
-
-        return "";
+        return developer.Skills.GetByIndex(skillIndex) - originalSkill;
     }
 
     private void HireDeveloper(Developer developer)

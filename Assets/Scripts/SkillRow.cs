@@ -4,9 +4,9 @@ public class SkillRow : IRow
 {
     private readonly string skillName;
     private readonly string skillValue;
-    private readonly string skillChange;
+    private readonly int skillChange;
 
-    public SkillRow(string skillName, string skillValue, string skillChange)
+    public SkillRow(string skillName, string skillValue, int skillChange)
     {
         this.skillName = skillName;
         this.skillValue = skillValue;

@@ -5,13 +5,9 @@ using UnityEngine.UI;
 
 public class EditTeamView : MonoBehaviour
 {
-    public Text teamNameText;
-    public Text satisfiesCustomerNeedText;
-    public Text qualityText;
-    public Text isReleasedText;
-    public Text teamCostText;
-    public Text teamSkillsText;
+    public Text headingText;
     public ColumnView membersColumnView;
+    public ColumnView teamSkillColumnView;
     private Feature feature;
     private int selectedDeveloperIndex = 0;
 
@@ -24,12 +20,9 @@ public class EditTeamView : MonoBehaviour
     {
         DevTeam.TeamUpdated += OnTeamUpdated;
 
-        teamNameText.text = feature.Name;
-        satisfiesCustomerNeedText.text = Mathf.RoundToInt(feature.SatisfiesCustomerNeed * 100) + "%";
-        qualityText.text = Mathf.RoundToInt(feature.Quality * 100) + "%";
-        isReleasedText.text = feature.IsReleased() ? "Released" : "Not released";
-        UpdateTeamCostAndSkills();
-        UpdateMembersColumnView();
+        headingText.text = $"Team {feature.Name}";
+        UpdateMembersColumn();
+        UpdateTeamSkillColumn();
     }
 
     private void OnDestroy()
@@ -39,8 +32,8 @@ public class EditTeamView : MonoBehaviour
 
     private void OnTeamUpdated()
     {
-        UpdateTeamCostAndSkills();
-        UpdateMembersColumnView();
+        UpdateTeamSkillColumn();
+        UpdateMembersColumn();
     }
 
     private void Update()
@@ -64,38 +57,48 @@ public class EditTeamView : MonoBehaviour
                 SetSelectedDeveloperIndex(selectedDeveloperIndex);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UiController.Instance.OpenView(View.Features);
+        }
     }
 
     private void SetSelectedDeveloperIndex(int nextIndex)
     {
         var developerCount = feature.GetTeam().GetMemberCount();
-        if (nextIndex >= developerCount)
+        if (developerCount == 0)
         {
             selectedDeveloperIndex = 0;
         }
-        else if (nextIndex < 0)
-        {
-            selectedDeveloperIndex = developerCount - 1;
-        }
         else
         {
-            selectedDeveloperIndex = nextIndex;
+            if (nextIndex >= developerCount)
+            {
+                selectedDeveloperIndex = 0;
+            }
+            else if (nextIndex < 0)
+            {
+                selectedDeveloperIndex = developerCount - 1;
+            }
+            else
+            {
+                selectedDeveloperIndex = nextIndex;
+            }
         }
 
-        UpdateMembersColumnView();
-        UpdateTeamCostAndSkills();
+        UpdateMembersColumn();
+        UpdateTeamSkillColumn();
     }
 
-    private void UpdateTeamCostAndSkills()
+    private void UpdateTeamSkillColumn()
     {
-        var team = feature.GetTeam();
-        var teamSpecs = new TeamSpecs(team);
-        teamCostText.text = $"{team.GetCombinedSalary():C0}";
-
-        var selectedDeveloper = GetSelectedDeveloper();
-        teamSkillsText.text = selectedDeveloper != null
-            ? teamSpecs.SpeculateFiring(selectedDeveloper)
-            : teamSpecs.GetSkillsString();
+        var teamSpecs = new TeamSpecs(feature.GetTeam());
+        var skillChanges = teamSpecs.GetComparisonRowsWhenFiring(GetSelectedDeveloper());
+        teamSkillColumnView.Set(TeamSpecs
+            .GetSkillRows(feature.GetTeam().GetCombinedSkills())
+            .Select((currentSkill, index) => new SkillRow(TeamSpecs.SkillNames[index], currentSkill.ToString(), skillChanges[index]))
+        );
     }
 
     private Developer GetSelectedDeveloper()
@@ -103,16 +106,28 @@ public class EditTeamView : MonoBehaviour
         return feature.GetTeam().GetMembers().ElementAtOrDefault(selectedDeveloperIndex);
     }
 
-    private void UpdateMembersColumnView()
+    private void UpdateMembersColumn()
     {
         var team = feature.GetTeam();
         var developers = team.GetMembers();
-        var developerRows = new List<DeveloperRow>();
+        var developerRows = new List<IRow>
+        {
+            new TextRow("Developers", TextRowStyle.ColumnHeading)
+        };
         for (var i = 0; i < team.GetMemberCount(); ++i)
         {
             var isSelected = selectedDeveloperIndex == i;
             developerRows.Add(new DeveloperRow(developers[i], isSelected));
         }
+
+        if (developers.Count == 0)
+        {
+            developerRows.Add(new TextRow("No developers"));
+        }
+
+        developerRows.Add(new SeparatorRow());
+        developerRows.Add(new LabelAndValueRow("Total cost",
+            $"{developers.Aggregate(0, (totalSalary, developer) => totalSalary + developer.Salary):C0}"));
 
         membersColumnView.Set(developerRows);
     }
