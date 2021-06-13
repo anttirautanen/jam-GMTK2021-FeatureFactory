@@ -5,6 +5,8 @@ using System.Linq;
 public class DevTeam
 {
     public static event Action TeamUpdated;
+    public static event Action<Developer> DeveloperHired;
+
     private readonly List<Developer> members = new List<Developer>();
     public Feature Feature;
 
@@ -42,6 +44,7 @@ public class DevTeam
     public void AddMember(Developer developer)
     {
         members.Add(developer);
+        DeveloperHired?.Invoke(developer);
     }
 
     public int GetCombinedSalary()

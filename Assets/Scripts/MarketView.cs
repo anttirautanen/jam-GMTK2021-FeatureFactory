@@ -52,6 +52,8 @@ public class MarketView : LayoutGroup
                 OnHireDeveloper?.Invoke(availableDevelopersCache[selectedDeveloperRowIndex]);
                 hireDeveloperRows[selectedDeveloperRowIndex].SetIsHired();
             }
+
+            SetSelectedDeveloperIndex(selectedDeveloperRowIndex);
         }
     }
 
@@ -68,7 +70,11 @@ public class MarketView : LayoutGroup
 
     private void SetSelectedDeveloperIndex(int nextIndex)
     {
-        hireDeveloperRows[selectedDeveloperRowIndex].SetIsHighlighted(false);
+        var previouslySelectedDeveloperRow = hireDeveloperRows.ElementAtOrDefault(selectedDeveloperRowIndex);
+        if (previouslySelectedDeveloperRow != null)
+        {
+            previouslySelectedDeveloperRow.SetIsHighlighted(false);
+        }
 
         if (nextIndex >= hireDeveloperRows.Count)
         {
@@ -83,11 +89,14 @@ public class MarketView : LayoutGroup
             selectedDeveloperRowIndex = nextIndex;
         }
 
-        hireDeveloperRows[selectedDeveloperRowIndex].SetIsHighlighted(true);
-
-        OnChangeHighlightedDeveloper?.Invoke(hireDeveloperRows[selectedDeveloperRowIndex].isHired
-            ? null
-            : availableDevelopersCache[selectedDeveloperRowIndex]);
+        var selectedDeveloperRow = hireDeveloperRows.ElementAtOrDefault(selectedDeveloperRowIndex);
+        if (selectedDeveloperRow != null)
+        {
+            selectedDeveloperRow.SetIsHighlighted(true);
+            OnChangeHighlightedDeveloper?.Invoke(selectedDeveloperRow.isHired
+                ? null
+                : availableDevelopersCache[selectedDeveloperRowIndex]);
+        }
     }
 
     public override void CalculateLayoutInputHorizontal()

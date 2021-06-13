@@ -29,12 +29,18 @@ public class DeveloperMarket : MonoBehaviour
     private void Start()
     {
         Game.OnMonthChange += UpdateMarket;
+        DevTeam.DeveloperHired += OnDeveloperHired;
     }
 
     private void UpdateMarket(int month)
     {
         availableDevelopers.Clear();
         AddDevelopersToMarket();
+    }
+
+    private void OnDeveloperHired(Developer developer)
+    {
+        availableDevelopers.Remove(developer);
     }
 
     private void AddDevelopersToMarket()
