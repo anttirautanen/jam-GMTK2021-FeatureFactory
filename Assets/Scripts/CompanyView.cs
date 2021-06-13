@@ -10,8 +10,8 @@ public class CompanyView : MonoBehaviour
 
     private void Start()
     {
-        Company.CompanyUpdated += UpdateMoneyColumn;
-        Company.CompanyUpdated += UpdateFeatureColumn;
+        Company.CompanyStatsUpdated += UpdateMoneyColumn;
+        Company.CompanyStatsUpdated += UpdateFeatureColumn;
         TeamView.OnTeamUpdated += UpdateMoneyColumn;
     }
 

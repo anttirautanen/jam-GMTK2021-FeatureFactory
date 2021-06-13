@@ -24,10 +24,10 @@ public class Customers : MonoBehaviour
 
     private void Start()
     {
-        Company.CompanyUpdated += OnCompanyUpdated;
+        Company.CompanyMonthlyUpdate += OnCompanyMonthlyUpdate;
     }
 
-    private void OnCompanyUpdated()
+    private void OnCompanyMonthlyUpdate()
     {
         if (Company.Instance.GetFeatureCount() > 0)
         {

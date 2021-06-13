@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class Company : MonoBehaviour
 {
-    public static event Action CompanyUpdated;
+    public static event Action CompanyMonthlyUpdate;
+    public static event Action CompanyStatsUpdated;
 
     private static Company _instance;
 
@@ -54,7 +55,7 @@ public class Company : MonoBehaviour
         var team = new DevTeam();
         teams.Add(team);
         features.Add(new Feature(team));
-        CompanyUpdated?.Invoke();
+        CompanyStatsUpdated?.Invoke();
     }
 
     public int GetCombinedSalary()
@@ -75,7 +76,8 @@ public class Company : MonoBehaviour
 
         teams.ForEach(team => money -= team.GetCombinedSalary());
 
-        CompanyUpdated?.Invoke();
+        CompanyMonthlyUpdate?.Invoke();
+        CompanyStatsUpdated?.Invoke();
     }
 
     public IEnumerable<Feature> GetAllFeatures()
@@ -112,12 +114,12 @@ public class Company : MonoBehaviour
 
     private static void OnFeatureReleased()
     {
-        CompanyUpdated?.Invoke();
+        CompanyStatsUpdated?.Invoke();
     }
 
     public void SetProductPrice(int nextPrice)
     {
         productPrice = nextPrice < 10 ? 10 : nextPrice;
-        CompanyUpdated?.Invoke();
+        CompanyStatsUpdated?.Invoke();
     }
 }
