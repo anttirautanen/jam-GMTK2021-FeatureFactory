@@ -1,13 +1,12 @@
 using System;
-using System.Text;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TeamView : MonoBehaviour
 {
     public static event Action OnTeamUpdated;
 
-    public Text teamSpecsText;
+    public ColumnView teamSkillColumnView;
     private DevTeam team;
 
     public void Setup(DevTeam team)
@@ -20,7 +19,7 @@ public class TeamView : MonoBehaviour
         AvailableDevelopersView.OnChangeHighlightedDeveloper += ShowTeamWithDeveloper;
         AvailableDevelopersView.OnHireDeveloper += HireDeveloper;
 
-        UpdateTeamSpecsText();
+        UpdateTeamSpecs();
     }
 
     private void OnDestroy()
@@ -31,32 +30,38 @@ public class TeamView : MonoBehaviour
 
     private void ShowTeamWithDeveloper(Developer developer)
     {
-        UpdateTeamSpecsText(developer);
+        UpdateTeamSpecs(developer);
     }
 
-    private void UpdateTeamSpecsText(Developer nextDeveloper = null)
+    private void UpdateTeamSpecs(Developer nextDeveloper = null)
     {
-        if (Company.Instance.GetTeamCount() > 0)
-        {
-            var teamSpecs = new TeamSpecs(team);
-            var teamSpecsString = new StringBuilder().AppendLine($"Members: {team.GetMemberCount()}");
+        teamSkillColumnView.Set(TeamSpecs
+            .GetSkillRows(team.GetCombinedSkills())
+            .Select((currentSkill, index) => new SkillRow(TeamSpecs.SkillNames[index], currentSkill.ToString(),
+                GetSkillChange(currentSkill, index, nextDeveloper)))
+        );
+    }
 
-            teamSpecsString.Append(nextDeveloper != null
-                ? teamSpecs.SpeculateHiring(nextDeveloper)
-                : teamSpecs.GetSkillsString());
-
-            teamSpecsText.text = teamSpecsString.ToString();
-        }
-        else
+    private string GetSkillChange(int originalSkill, int skillIndex, Developer developer = null)
+    {
+        if (developer == null)
         {
-            teamSpecsText.text = "";
+            return "";
         }
+
+        var skillChange = developer.Skills.GetByIndex(skillIndex) - originalSkill;
+        if (skillChange > 0)
+        {
+            return $"+{skillChange}";
+        }
+
+        return "";
     }
 
     private void HireDeveloper(Developer developer)
     {
         team.AddMember(developer);
-        UpdateTeamSpecsText();
+        UpdateTeamSpecs();
         OnTeamUpdated?.Invoke();
     }
 }

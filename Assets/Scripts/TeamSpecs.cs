@@ -5,7 +5,7 @@ using System.Text;
 public class TeamSpecs
 {
     private readonly DevTeam team;
-    private static readonly string[] SkillNames = {"Design", "Frontend", "Backend", "Databases", "Devops"};
+    public static readonly string[] SkillNames = {"Design", "Frontend", "Backend", "Databases", "Devops"};
 
     public TeamSpecs(DevTeam team)
     {
@@ -40,15 +40,15 @@ public class TeamSpecs
         return teamSpecs.ToString();
     }
 
-    private static string[] GetSkillRows(Skills skills)
+    public static int[] GetSkillRows(Skills skills)
     {
         return new[]
         {
-            skills.Design.ToString(),
-            skills.Frontend.ToString(),
-            skills.Backend.ToString(),
-            skills.Database.ToString(),
-            skills.Devops.ToString()
+            skills.Design,
+            skills.Frontend,
+            skills.Backend,
+            skills.Database,
+            skills.Devops
         };
     }
 

@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b14bd0602c145dfadbe61a1ce6fcf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamSpecsText: {fileID: 0}
+  teamSkillColumnView: {fileID: 5689618331268666934}
 --- !u!1 &2439102068551868775
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,11 +380,11 @@ RectTransform:
   m_Father: {fileID: 2439102068468816842}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 225, y: 20}
-  m_Pivot: {x: 0, y: 1}
+  m_SizeDelta: {x: 160, y: 20}
+  m_Pivot: {x: 1, y: 1}
 --- !u!222 &5248499215141514765
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -426,7 +426,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Available developers
+  m_Text: Team skill
 --- !u!1001 &4234106107065564361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -436,11 +436,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1816128712908062548, guid: 1288c0b48ce8c4d2e950d452e6666a62, type: 3}
       propertyPath: m_Name
-      value: TeamColumnView
+      value: TeamSkillColumnView
       objectReference: {fileID: 0}
     - target: {fileID: 3264126062193534236, guid: 1288c0b48ce8c4d2e950d452e6666a62, type: 3}
       propertyPath: m_Pivot.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3264126062193534236, guid: 1288c0b48ce8c4d2e950d452e6666a62, type: 3}
       propertyPath: m_Pivot.y
@@ -452,7 +452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3264126062193534236, guid: 1288c0b48ce8c4d2e950d452e6666a62, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3264126062193534236, guid: 1288c0b48ce8c4d2e950d452e6666a62, type: 3}
       propertyPath: m_AnchorMax.y
@@ -460,7 +460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3264126062193534236, guid: 1288c0b48ce8c4d2e950d452e6666a62, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3264126062193534236, guid: 1288c0b48ce8c4d2e950d452e6666a62, type: 3}
       propertyPath: m_AnchorMin.y
@@ -468,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3264126062193534236, guid: 1288c0b48ce8c4d2e950d452e6666a62, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 225
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 3264126062193534236, guid: 1288c0b48ce8c4d2e950d452e6666a62, type: 3}
       propertyPath: m_SizeDelta.y
@@ -529,6 +529,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3264126062193534236, guid: 1288c0b48ce8c4d2e950d452e6666a62, type: 3}
   m_PrefabInstance: {fileID: 4234106107065564361}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5689618331268666934 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8374167151755766527, guid: 1288c0b48ce8c4d2e950d452e6666a62, type: 3}
+  m_PrefabInstance: {fileID: 4234106107065564361}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ecc9a55f44a549f0883107afc4426b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4939284630714038524
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class ColumnView : MonoBehaviour
     public Transform featureColumnHeadingsPrefab;
     public Transform developerRowPrefab;
     public Transform separatorRowPrefab;
+    public Transform skillRowPrefab;
     private readonly List<Transform> previousInstances = new List<Transform>();
 
     public void Set(IEnumerable<IRow> rows)
@@ -34,6 +35,7 @@ public class ColumnView : MonoBehaviour
             RowType.FeatureColumnHeadings => featureColumnHeadingsPrefab,
             RowType.Developer => developerRowPrefab,
             RowType.Separator => separatorRowPrefab,
+            RowType.Skill => skillRowPrefab,
             _ => null
         };
     }

@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Skills
 {
@@ -75,5 +77,18 @@ public class Skills
     public float GetAverageSkillPercentage()
     {
         return (float) (Design + Frontend + Backend + Database + Devops) / (MaxSkill * 5);
+    }
+
+    public int GetByIndex(int skillIndex)
+    {
+        return skillIndex switch
+        {
+            0 => Design,
+            1 => Frontend,
+            2 => Backend,
+            3 => Database,
+            4 => Devops,
+            _ => throw new IndexOutOfRangeException($"No skills found with index {skillIndex}.")
+        };
     }
 }

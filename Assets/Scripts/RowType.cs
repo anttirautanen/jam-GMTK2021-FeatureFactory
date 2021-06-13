@@ -6,5 +6,6 @@ public enum RowType
     Developer,
     LabelAndValue,
     Separator,
+    Skill,
     Unknown
 }

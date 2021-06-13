@@ -81,3 +81,4 @@ MonoBehaviour:
   featureColumnHeadingsPrefab: {fileID: 805185712793798264, guid: b192b1d703e414de9af356477d81f7f4, type: 3}
   developerRowPrefab: {fileID: 805185712793798264, guid: b74df0930e36f4158be1f93aaf1bd8f8, type: 3}
   separatorRowPrefab: {fileID: 9215290688505843388, guid: f05b38a3c876a4468a0ec5d74ea0c51f, type: 3}
+  skillRowPrefab: {fileID: 805185712793798264, guid: 82ca3d9a4f4224ccba90fd3ea3fb8899, type: 3}
