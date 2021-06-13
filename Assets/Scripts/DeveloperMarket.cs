@@ -20,6 +20,7 @@ public class DeveloperMarket : MonoBehaviour
 
             return _instance;
         }
+        set => _instance = value;
     }
 
     private readonly List<Developer> availableDevelopers = new List<Developer>();

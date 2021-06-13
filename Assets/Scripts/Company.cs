@@ -23,6 +23,7 @@ public class Company : MonoBehaviour
 
             return _instance;
         }
+        set => _instance = value;
     }
 
     public int productPrice = 10;
@@ -103,8 +104,16 @@ public class Company : MonoBehaviour
 
         teams.ForEach(team => money -= team.GetCombinedSalary());
 
-        CompanyMonthlyUpdate?.Invoke();
-        CompanyStatsUpdated?.Invoke();
+        if (money < 0)
+        {
+            print("RAN OUT OF MONEY");
+            Game.Instance.RanOutOfMoney();
+        }
+        else
+        {
+            CompanyMonthlyUpdate?.Invoke();
+            CompanyStatsUpdated?.Invoke();
+        }
     }
 
     public IEnumerable<Feature> GetAllFeatures()

@@ -635,6 +635,7 @@ MonoBehaviour:
   editTeamViewPrefab: {fileID: 2309697009863363105, guid: d5f0662d53d964965a6468ea14523389, type: 3}
   hiringViewPrefab: {fileID: 2439102068465365001, guid: 13b7ceb4168a9464ca62ee7a887f7f71, type: 3}
   featuresViewPrefab: {fileID: 8329913719484586764, guid: 444a07121fc4348929e9b4ab805679ef, type: 3}
+  outOfMoneyViewPrefab: {fileID: 4665625221093302656, guid: 4ca3d85a7bf374812a7a049db3f80f2b, type: 3}
 --- !u!4 &1530682707
 Transform:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ public class KeyHelp : MonoBehaviour
 
             return _instance;
         }
+        set => _instance = value;
     }
 
     private Text keyHelpText;

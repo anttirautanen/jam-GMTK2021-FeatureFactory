@@ -7,7 +7,8 @@ public enum View
     Company,
     EditTeam,
     Hire,
-    Features
+    Features,
+    RanOutOfMoney
 }
 
 public class UiController : MonoBehaviour
@@ -25,6 +26,7 @@ public class UiController : MonoBehaviour
 
             return _instance;
         }
+        set => _instance = value;
     }
 
     public Transform canvas;
@@ -34,6 +36,7 @@ public class UiController : MonoBehaviour
     public Transform editTeamViewPrefab;
     public Transform hiringViewPrefab;
     public Transform featuresViewPrefab;
+    public Transform outOfMoneyViewPrefab;
 
     private Dictionary<View, Transform> views;
     private BaseView baseView;
@@ -47,7 +50,8 @@ public class UiController : MonoBehaviour
             {View.Company, companyViewPrefab},
             {View.EditTeam, editTeamViewPrefab},
             {View.Hire, hiringViewPrefab},
-            {View.Features, featuresViewPrefab}
+            {View.Features, featuresViewPrefab},
+            {View.RanOutOfMoney, outOfMoneyViewPrefab}
         };
 
         baseView = Instantiate(baseViewPrefab, canvas).GetComponent<BaseView>();

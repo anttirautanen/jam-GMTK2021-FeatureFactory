@@ -17,12 +17,14 @@ public class Game : MonoBehaviour
 
             return _instance;
         }
+        set => _instance = value;
     }
 
     public static event Action<int> OnMonthChange;
 
     public Text monthText;
     private int month = 0;
+    private bool isGameOver = false;
 
     private void Start()
     {
@@ -31,10 +33,21 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
+        if (isGameOver)
+        {
+            return;
+        }
+
         if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.Return))
         {
             OnAdvanceToNextMonth();
         }
+    }
+
+    public void RanOutOfMoney()
+    {
+        isGameOver = true;
+        UiController.Instance.OpenView(View.RanOutOfMoney);
     }
 
     private void OnAdvanceToNextMonth()
