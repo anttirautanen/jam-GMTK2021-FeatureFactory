@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Game : MonoBehaviour
 {
     private static Game _instance;
+    public const int TimeLimit = 60;
 
     public static Game Instance
     {
@@ -49,11 +50,25 @@ public class Game : MonoBehaviour
         UiController.Instance.OpenView(View.RanOutOfMoney);
     }
 
+    private void GameOver()
+    {
+        isGameOver = true;
+        UiController.Instance.OpenView(View.GameOver);
+    }
+
     private void OnAdvanceToNextMonth()
     {
         month++;
-        OnMonthChange?.Invoke(month);
-        monthText.text = $"Month {month}";
+
+        if (month > TimeLimit)
+        {
+            GameOver();
+        }
+        else
+        {
+            OnMonthChange?.Invoke(month);
+            monthText.text = $"Month {month}/{TimeLimit}";
+        }
     }
 
     public int GetCurrentMonth()

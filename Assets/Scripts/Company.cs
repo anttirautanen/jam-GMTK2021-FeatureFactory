@@ -105,7 +105,6 @@ public class Company : MonoBehaviour
 
         if (money < 0)
         {
-            print("RAN OUT OF MONEY");
             Game.Instance.RanOutOfMoney();
         }
         else
