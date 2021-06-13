@@ -3,6 +3,7 @@ using UnityEngine;
 
 public enum View
 {
+    Start,
     Company,
     EditTeam,
     Hire,
@@ -28,6 +29,7 @@ public class UiController : MonoBehaviour
 
     public Transform canvas;
     public Transform baseViewPrefab;
+    public Transform startViewPrefab;
     public Transform companyViewPrefab;
     public Transform editTeamViewPrefab;
     public Transform hiringViewPrefab;
@@ -41,6 +43,7 @@ public class UiController : MonoBehaviour
     {
         views = new Dictionary<View, Transform>
         {
+            {View.Start, startViewPrefab},
             {View.Company, companyViewPrefab},
             {View.EditTeam, editTeamViewPrefab},
             {View.Hire, hiringViewPrefab},
@@ -48,7 +51,7 @@ public class UiController : MonoBehaviour
         };
 
         baseView = Instantiate(baseViewPrefab, canvas).GetComponent<BaseView>();
-        OpenView(View.Company);
+        OpenView(View.Start);
     }
 
     public Transform OpenView(View view)
